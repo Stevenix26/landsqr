@@ -1,0 +1,85 @@
+$primary: #213f7d;
+$secondary: #545f7d;
+$login: #39cdcc;
+$error: #e4033b;
+$background: #fff;
+$form-bg: #fafbff;
+$font-base: var(--font-work-sans), var(--font-avenir-next), Arial, sans-serif;
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+    --login: #39cdcc;
+    --primary: #213f7d;
+    --secondary: #545f7d;
+    --error: #e4033b;
+    --font-family-base: #{$font-base};
+  }
+}
+
+:root {
+  font-family: var(--font-work-sans);
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+
+  h3 {
+    color: $secondary;
+    font: var(--font-work-sans);
+
+    font-weight: 500;
+    font-size: 14px;
+
+    line-height: 100%;
+    letter-spacing: 0%;
+    text-transform: uppercase;
+  }
+
+  p {
+    color: $primary;
+    font: var(--font-work-sans);
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    text-transform: uppercase;
+
+    @media (min-width: 640px) {
+      font-size: 1.25rem /* 20px */;
+      line-height: 1.75rem /* 28px */;
+    }
+    @media (min-width: 1024px) {
+      font-size: 24px;
+    }
+  }
+
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  background: $background;
+  border: 1px solid $background;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.2s, border-color 0.2s;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+  &:hover {
+    box-shadow: 1px 2px 20px rgba(0, 0, 0, 0.2);
+    border-color: darken($background, 5%);
+    transform: scale(1.05);
+  }
+}
