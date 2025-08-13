@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import Styles from "@/styles/sidebar.module.scss"; // Adjust the path as necessary
 import Image from "next/image";
 import Link from "next/link";
@@ -24,7 +24,6 @@ type SidebarProps = {
 };
 
 const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, setIsCollapsed }) => {
-
   const menuItems: MenuSection[] = [
     {
       category: "",
@@ -210,7 +209,9 @@ const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, setIsCollapsed }) => {
       </div> */}
 
       <div
-        className={`${Styles.Inner} ${isCollapsed ? `${Styles.collapsed}` : ""}`}
+        className={`${Styles.Inner} ${
+          isCollapsed ? `${Styles.collapsed}` : ""
+        }`}
       >
         <div className={`Styles.section `}>
           {menuItems.map((section, sectionIndex) => (
