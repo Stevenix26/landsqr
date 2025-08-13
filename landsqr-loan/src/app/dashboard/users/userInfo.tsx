@@ -1,7 +1,8 @@
 "use client";
 import React from "react";
-import styles from "@/styles/UsersInfo.module.scss";
-import { useRouter} from 'next/navigation'
+import Styles from "@/styles/UsersInfo.module.scss";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
 interface UserInfo {
   fullName: string;
   phoneNumber: string;
@@ -67,127 +68,145 @@ const UserInfo: React.FC<UserDetailsProps> = ({
   onBlacklist,
   onActivate,
 }) => {
-
-    const router = useRouter();
+  const router = useRouter();
 
   return (
-    <div className={styles.userDetails}>
+    <div className={Styles.userDetails}>
       {/* back to user */}
-      <div className={styles.backLink}>
-        <button onClick={() => router.back()}>← Back to Users</button>
+      <div className={Styles.backLink}>
+        <span onClick={() => router.back()}>
+          ← Back to Users
+        </span>
       </div>
-
-      {/* Header */}
-      <div className={` users-table-container  ${styles.header}`}>
-        <div className={styles.profile}>
-          <img
-            src={profileImage || "/default-avatar.png"}
-            alt={fullName}
-            className={styles.avatar}
-          />
-          <div>
-            <h2>{fullName}</h2>
-            <p>{username}</p>
-          </div>
-        </div>
-
-        <div className={styles.tier}>
-          <p>User’s Tier</p>
-          <div>
-            {"★".repeat(userTier)}
-            {"☆".repeat(3 - userTier)}
-          </div>
-        </div>
-
-        <div className={styles.account}>
-          <h3>{accountBalance}</h3>
-          <p>
-            {accountNumber}/{bankName}
-          </p>
-        </div>
-
-        <div className={styles.actions}>
-          <button className={styles.blacklist} onClick={onBlacklist}>
+      <div className={Styles.actions}>
+        <span>User Details</span>
+        <div className={Styles.buttonSpace}>
+          <button className={Styles.blacklist} onClick={onBlacklist}>
             BLACKLIST USER
           </button>
-          <button className={styles.activate} onClick={onActivate}>
+          <button className={Styles.activate} onClick={onActivate}>
             ACTIVATE USER
           </button>
         </div>
       </div>
 
-      <div className= "users-table-container">
-      
+      {/* Header */}
+      <div className={Styles.userContainer}>
+        <div className={Styles.header}>
+          <div className={Styles.profile}>
+            <div className={Styles.avatarContainer}>
+              <Image
+                src={profileImage || "/images/img_np_user_948637_000000.svg"}
+                alt={fullName}
+                width={40}
+                height={40}
+                className={Styles.avatar}
+              />
+            </div>
 
-      {/* Tabs */}
-      <div className={styles.tabs}>
-        {[
-          "General Details",
-          "Documents",
-          "Bank Details",
-          "Loans",
-          "Savings",
-          "App and System",
-        ].map((tab, idx) => (
-          <button key={idx} className={idx === 0 ? styles.active : ""}>
-            {tab}
-          </button>
-        ))}
+            <div>
+              <h2>{fullName}</h2>
+              <p>{username}</p>
+            </div>
+          </div>
+
+          {/* line divider */}
+          <div className={Styles.line}></div>
+
+          <div className={Styles.tier}>
+            <p>User’s Tier</p>
+            <div className={Styles.stars}>
+              {"★".repeat(userTier)}
+              {"☆".repeat(3 - userTier)}
+            </div>
+          </div>
+
+          {/* line divider */}
+          <div className={Styles.line}></div>
+
+          <div className={Styles.account}>
+            <h3>{accountBalance}</h3>
+            <p>
+              {accountNumber}/{bankName}
+            </p>
+          </div>
+        </div>
+
+        <div className={Styles.tabs}>
+          {[
+            "General Details",
+            "Documents",
+            "Bank Details",
+            "Loans",
+            "Savings",
+            "App and System",
+          ].map((tab, idx) => (
+            <span key={idx} className={idx === 0 ? Styles.active : ""}>
+              {tab}
+            </span>
+          ))}
+        </div>
       </div>
 
-      {/* Personal Info */}
-      <section className={styles.section}>
-        <h4>Personal Information</h4>
-        <div className={styles.infoGrid}>
-          {Object.entries(personalInfo).map(([key, value]) => (
-            <div key={key}>
-              <p className={styles.label}>{key.replace(/([A-Z])/g, " $1")}</p>
-              <p className={styles.value}>{value}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Employment Info */}
-      <section className={styles.section}>
-        <h4>Education and Employment</h4>
-        <div className={styles.infoGrid}>
-          {Object.entries(employmentInfo).map(([key, value]) => (
-            <div key={key}>
-              <p className={styles.label}>{key.replace(/([A-Z])/g, " $1")}</p>
-              <p className={styles.value}>{value}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Socials */}
-      <section className={styles.section}>
-        <h4>Socials</h4>
-        <div className={styles.infoGrid}>
-          {Object.entries(socials).map(([key, value]) => (
-            <div key={key}>
-              <p className={styles.label}>{key}</p>
-              <p className={styles.value}>{value}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Guarantors */}
-      {guarantors.map((guarantor, index) => (
-        <section key={index} className={styles.section}>
-          <h4>Guarantor</h4>
-          <div className={styles.infoGrid}>
-            {Object.entries(guarantor).map(([key, value]) => (
+      <div className={Styles.userContainer}>
+        {/* Personal Info */}
+        <section className={Styles.section}>
+          <h4>Personal Information</h4>
+          <div className={Styles.infoGrid}>
+            {Object.entries(personalInfo).map(([key, value]) => (
               <div key={key}>
-                <p className={styles.label}>{key.replace(/([A-Z])/g, " $1")}</p>
-                <p className={styles.value}>{value}</p>
+                <p className={Styles.label}>{key.replace(/([A-Z])/g, " $1")}</p>
+                <p className={Styles.value}>{value}</p>
               </div>
             ))}
           </div>
         </section>
-      ))}
+        <div className={Styles.Hline}></div>
+
+        {/* Employment Info */}
+        <section className={Styles.section}>
+          <h4>Education and Employment</h4>
+          <div className={Styles.infoGrid}>
+            {Object.entries(employmentInfo).map(([key, value]) => (
+              <div key={key}>
+                <p className={Styles.label}>{key.replace(/([A-Z])/g, " $1")}</p>
+                <p className={Styles.value}>{value}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+        <div className={Styles.Hline}></div>
+
+        {/* Socials */}
+        <section className={Styles.section}>
+          <h4>Socials</h4>
+          <div className={Styles.infoGrid}>
+            {Object.entries(socials).map(([key, value]) => (
+              <div key={key}>
+                <p className={Styles.label}>{key}</p>
+                <p className={Styles.value}>{value}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+        <div className={Styles.Hline}></div>
+
+        {/* Guarantors */}
+        {guarantors.map((guarantor, index) => (
+          <section key={index} className={Styles.section}>
+            <h4>Guarantor</h4>
+            <div className={Styles.infoGrid}>
+              {Object.entries(guarantor).map(([key, value]) => (
+                <div key={key}>
+                  <p className={Styles.label}>
+                    {key.replace(/([A-Z])/g, " $1")}
+                  </p>
+                  <p className={Styles.value}>{value}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        ))}
       </div>
     </div>
   );

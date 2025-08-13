@@ -152,6 +152,17 @@ select {
 .hide {
   display: none !important;
 }
+
+.open{
+  display: block !important;
+}
+
+.flex {
+  display: flex !important;
+  
+  flex: 1 !important ;
+}
+
 .text-center {
   text-align: center !important;
 }

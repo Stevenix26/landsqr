@@ -18,8 +18,12 @@ type MenuSection = {
   items: MenuItem[];
 };
 
-const Sidebar = () => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+type SidebarProps = {
+  isCollapsed: boolean;
+  setIsCollapsed: (collapsed: boolean) => void;
+};
+
+const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, setIsCollapsed }) => {
 
   const menuItems: MenuSection[] = [
     {
@@ -184,7 +188,7 @@ const Sidebar = () => {
   ];
 
   return (
-    <aside className={Styles.sidebar}>
+    <aside className={`${Styles.sidebar}`}>
       <div className={Styles.toggleButton}>
         <button
           aria-label="Toggle Sidebar"
@@ -206,9 +210,7 @@ const Sidebar = () => {
       </div> */}
 
       <div
-        className={`Styles.Inner ${
-          isCollapsed ? Styles.collapsed : Styles.open
-        }`}
+        className={`${Styles.Inner} ${isCollapsed ? `${Styles.collapsed}` : ""}`}
       >
         <div className={`Styles.section `}>
           {menuItems.map((section, sectionIndex) => (
