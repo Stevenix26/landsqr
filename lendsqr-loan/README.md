@@ -1,11 +1,11 @@
-# Landsqr Loan Dashboard
+# Lendsqr Loan Dashboard
 
 A professional, responsive loan management dashboard built with Next.js, React, and SCSS. This project features a modern UI, custom font integration, authentication, and a scalable layout for user and admin operations.
 
 ## Folder Structure
 
 ```
-landsqr-loan/
+lendsqr-loan/
 ├── public/
 │   └── images/
 ├── src/
@@ -61,8 +61,8 @@ landsqr-loan/
 Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/landsqr-loan.git
-cd landsqr-loan
+git clone https://github.com/your-username/lendsqr-loan.git
+cd lendsqr-loan
 ```
 
 Install dependencies:
