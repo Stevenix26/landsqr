@@ -61,8 +61,8 @@ lendsqr-loan/
 Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/lendsqr-loan.git
-cd lendsqr-loan
+git clone https://github.com/your-username/lendsqr.git
+cd lendsqr
 ```
 
 Install dependencies:
