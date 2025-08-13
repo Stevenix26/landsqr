@@ -117,4 +117,4 @@ This project is licensed under the MIT License.
 
 ---
 
-> Built with ❤️ by the Landsqr team
+> Built with ❤️ by the Stephen_Agboola
