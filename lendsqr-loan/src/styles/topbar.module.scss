@@ -38,12 +38,22 @@
 
 .menuButton {
   border: none;
-  background: $login;
+  background: none;
+    color: #1a2e52;
   font-size: 1.5rem;
-  line-height: 1;
+  font-weight: 500;
+  // line-height: 1;
+  width: 36px;
+  height: 36px;
+  border-radius: 10%;
+  // display: flex;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
+    &:hover {
+    background: none;
+    // color: #f3f6fa;
+  }
 
   /* show on mobile, hide on desktop */
   @media (min-width: 1024px) {

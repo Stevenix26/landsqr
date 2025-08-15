@@ -1,268 +1,163 @@
-// Removed invalid top-level CSS and comments; SCSS variables must be declared at the top.
-
-$primary: #213f7d;
-$secondary: #545f7d;
-$login: #39cdcc;
-$error: #e4033b;
-$background: #fff;
-$form-bg: #fafbff;
-$font-base: var(--font-work-sans), var(--font-avenir-next), Arial, sans-serif;
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-    --login: #39cdcc;
-    --primary: #213f7d;
-    --secondary: #545f7d;
-    --error: #e4033b;
-    --font-family-base: #{$font-base};
-  }
-}
-
-:root {
-  font-family: var(--font-avenir-next);
-}
-.welcome,
-.subtitle,
-.inputWrapper,
-.form,
-.input,
-.passwordWrapper,
-.showPassword,
-.forgotPassword,
-.loginButton {
-  font-family: var(--font-avenir-next);
-}
+/* login.module.scss */
 
 .loginContainer {
   display: flex;
-  background: var(--background);
-  min-height: 100vh;
-  flex-direction: row;
-  justify-content: center;
-  align-items: stretch;
-  @media (max-width: 900px) {
-    flex-direction: column;
-    min-height: 100vh;
-    height: auto;
-  }
+  height: 100vh;
+  font-family: var(--font-work-sans), sans-serif;
 }
 
+/* ===== Left Panel ===== */
 .leftPanel {
-  flex: 1 1 0;
+  flex: 1;
+  background: #fbfbfb;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  background: $background;
-  position: relative;
-  min-width: 300px;
-  @media (max-width: 900px) {
-    min-width: 0;
-    width: 100%;
-    padding: 2rem 0 1rem 0;
-  }
+  padding: 2rem 4rem;
 }
 
 .logoWrapper {
-  margin-bottom: 2rem;
-  opacity: 1;
-  top: 106px;
-  left: 97px;
-  position: absolute;
-  @media (max-width: 900px) {
-    position: static;
-    margin: 2rem auto 1rem auto;
-    display: flex;
-    justify-content: center;
-    left: 0;
-    top: 0;
-  }
-  @media (max-width: 600px) {
-    max-width: 200px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+  margin-bottom: 4rem;
 }
 
 .illustrationWrapper {
-  left: 67px;
-  top: 281px;
-  @media (max-width: 900px) {
-    display: none !important;
-  }
-  @media (max-width: 600px) {
-    display: none !important;
-  }
-  @media (min-width: 601px) {
-    display: flex !important;
-    width: 600px;
-    max-width: 100%;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto 2rem auto;
-    position: static;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
+.illustrationWrapper img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ===== Right Panel ===== */
 .rightPane {
-  flex: 2 1 0;
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: $form-bg;
-  min-width: 300px;
-  @media (max-width: 900px) {
-    min-width: 0;
-    width: 100%;
-    padding: 2rem 0;
-  }
+  padding: 3rem;
+  background: #ffffff;
 }
 
 .formWrapper {
   width: 100%;
   max-width: 400px;
-  background: $form-bg;
-  padding: 2rem 2.5rem;
-  border-radius: 12px;
-  box-shadow: 0 2px 16px rgba(44, 62, 80, 0.08);
-  @media (max-width: 900px) {
-    margin: 0 auto;
-    max-width: 95vw;
-    padding: 2rem 1rem;
-    box-shadow: none;
-  }
-  @media (max-width: 600px) {
-    max-width: 100vw;
-    padding: 1.2rem 0.5rem;
-    border-radius: 0;
-    box-shadow: none;
-  }
 }
 
 .welcome {
-  font-size: 2.2rem;
+  font-size: 2.5rem;
   font-weight: 700;
-  color: $primary;
-  margin-bottom: 0.5rem;
-  @media (max-width: 600px) {
-    font-size: 1.5rem;
-  }
+  margin-bottom: 0.3rem;
+  color: #213f7d;
 }
 
 .subtitle {
-  color: $secondary;
-  margin-bottom: 2rem;
   font-size: 1rem;
-  @media (max-width: 600px) {
-    font-size: 0.95rem;
-  }
+  margin-bottom: 2rem;
+  color: #545f7d;
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
 }
 
-.input {
-  font-weight: 400;
-  padding: 0.9rem 1rem;
-  border: 2px solid rgba($secondary, 0.2);
-  border-radius: 5px;
-  font-size: 1rem;
-  outline: none;
-  background: #fff;
-  color: $secondary;
-  width: 100%;
-  height: 50px;
+.inputGroup {
   display: flex;
-  align-items: center;
-  letter-spacing: 0%;
-  line-height: 100%;
-  transition: border-color 0.2s;
+  flex-direction: column;
+  margin-bottom: 1.2rem;
+}
+
+.label {
+  font-size: 0.85rem;
+  margin-bottom: 0.4rem;
+  color: #545f7d;
+}
+.input {
+  padding: 0.8rem;
+  border: 1px solid #dcdcdc;
+  border-radius: 5px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+
   &:focus {
-    border-color: $primary;
-  }
-  @media (max-width: 600px) {
-    font-size: 0.95rem;
-    height: 44px;
-    padding: 0.7rem 0.8rem;
+    border-color: #39cdcc;
   }
 }
 
 .passwordWrapper {
-  position: relative;
   display: flex;
   align-items: center;
-}
+  border: 1px solid #dcdcdc;
+  border-radius: 5px;
+  overflow: hidden;
+     &:focus {
+    border-color: #39cdcc;
+  }
 
-.showPassword {
-  position: absolute;
-  right: 1rem;
-  top: 50%;
-  transform: translateY(-50%);
-  color: $login;
-  font-weight: 600;
-  font-size: 12px;
-  cursor: pointer;
-  user-select: none;
-  letter-spacing: 10%;
-  transition: color 0.2s;
-  &:hover {
-    color: darken($login, 10%);
+  input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 10px;
+    font-size: 0.95rem;
+     
+  }
+
+  .showPassword {
+    background: none;
+    border: none;
+    color: #39cdcc;
+    font-weight: 600;
+    font-size: 0.8rem;
+    padding: 0 12px;
+    cursor: pointer;
   }
 }
 
 .forgotPassword {
-  color: $login;
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 0.85rem;
+  color: #39cdcc;
   text-decoration: none;
-  margin-bottom: 1.2rem;
+  margin-bottom: 1.5rem;
   display: inline-block;
-  transition: color 0.2s;
+
   &:hover {
-    color: darken($login, 10%);
     text-decoration: underline;
   }
 }
 
-.errorMessage {
-  color: $error;
-  background: rgba($error, 0.08);
-  border-radius: 5px;
-  padding: 0.7rem 1rem;
-  margin-bottom: 1rem;
-  font-size: 0.98rem;
-  text-align: center;
-  font-weight: 500;
-  border: 1px solid rgba($error, 0.15);
-}
-
 .loginButton {
-  background: $login;
+  padding: 0.9rem;
+  background: #39cdcc;
   color: #fff;
-  font-weight: 700;
   font-size: 1rem;
+  font-weight: 600;
   border: none;
   border-radius: 8px;
-  padding: 0.9rem 0;
   cursor: pointer;
-  transition: background 0.2s, opacity 0.2s;
-  opacity: 1;
-  &:disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
-  }
-  @media (max-width: 600px) {
-    font-size: 0.95rem;
-    padding: 0.7rem 0;
+  transition: background 0.2s ease;
+  width: 100%;
+
+  &:hover {
+    background: #2bb4b3;
   }
 }
 
-.loginButton:hover:not(:disabled) {
-  background: darken($login, 10%);
+/* ===== Responsive ===== */
+@media (max-width: 900px) {
+  .loginContainer {
+    flex-direction: column;
+  }
+
+  .leftPanel {
+    display: none;
+  }
+
+  .rightPane {
+    padding: 2rem 1rem;
+  }
 }

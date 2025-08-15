@@ -2,6 +2,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import styles from "@/styles/UserActionMenu.module.scss";
 
 interface UserActionsMenuProps {
   userId: string;
@@ -32,10 +33,11 @@ const UserActionsMenu: React.FC<UserActionsMenuProps> = ({
   }, []);
 
   return (
-    <div className="relative" ref={menuRef}>
+    <div className={styles.menuWrapper} ref={menuRef}>
       <button
         onClick={() => setOpen((prev) => !prev)}
-        className="p-2 hover:bg-gray-100 rounded-full"
+        className={styles.menuButton}
+        aria-label="Open user actions menu"
       >
         <Image
           src="/images/img_ic_more_vert_18px.svg"
@@ -46,14 +48,20 @@ const UserActionsMenu: React.FC<UserActionsMenuProps> = ({
       </button>
 
       {open && (
-        <div className="absolute right-0 mt-2 w-44 bg-white shadow-lg rounded-lg py-2 z-50">
+        <div className={styles.dropdownMenu}>
           <button
             onClick={() => {
               router.push(`/dashboard/usersDetails/${userId}`);
               setOpen(false);
             }}
-            className="flex items-center gap-2 px-4 py-2 hover:bg-gray-50 w-full text-left"
+            className={styles.dropdownItem}
           >
+            <Image
+              src="/images/np_view_1214519_000000 1.svg"
+              alt="Person"
+              width={14}
+              height={14}
+            />
             View Details
           </button>
 
@@ -62,8 +70,14 @@ const UserActionsMenu: React.FC<UserActionsMenuProps> = ({
               onBlacklist(userId);
               setOpen(false);
             }}
-            className="flex items-center gap-2 px-4 py-2 hover:bg-gray-50 w-full text-left text-red-500"
+            className={`${styles.dropdownItem} ${styles.blacklist}`}
           >
+            <Image
+              src="/images/np_delete-friend_3248001_000000 1.svg"
+              alt="Blacklist"
+              width={14}
+              height={14}
+            />
             Blacklist User
           </button>
 
@@ -72,8 +86,14 @@ const UserActionsMenu: React.FC<UserActionsMenuProps> = ({
               onActivate(userId);
               setOpen(false);
             }}
-            className="flex items-center gap-2 px-4 py-2 hover:bg-gray-50 w-full text-left text-green-500"
+            className={`${styles.dropdownItem} ${styles.activate}`}
           >
+            <Image
+              src="/images/np_user_2995993_000000 1.svg"
+              alt="Activate"
+              width={14}
+              height={14}
+            />
             Activate User
           </button>
         </div>

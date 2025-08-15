@@ -1,173 +1,173 @@
-// SCSS Variables
-$colors: (
-  // Global Colors
-  global: (
-    bg-1: #213f7d19,
-    bg-2: #213f7d28,
-    bg-3: #39cdcc,
-    bg-4: #39cdcc0f,
-    bg-5: #545f7d33,
-    bg-6: #fbfbfb,
-    bg-7: #ffffff,
-    text-1: #000000cc,
-    text-2: #213f7d,
-    text-3: #39cdcc,
-    text-4: #545f7d,
-    text-5: #545f7d99
-  ),
-  // Header Colors
-  header: (
-    bg-1: #ffffff33,
-    text-1: #545f7db2
-  ),
-  // Button Colors
-  button: (
-    bg-1: #39cd620f,
-    bg-2: #545f7d0f,
-    bg-3: #e4033b19,
-    bg-4: #e9b20019,
-    text-1: #39cd62,
-    text-2: #e4033b,
-    text-3: #e9b200
-  )
-);
+// // SCSS Variables
+// $colors: (
+//   // Global Colors
+//   global: (
+//     bg-1: #213f7d19,
+//     bg-2: #213f7d28,
+//     bg-3: #39cdcc,
+//     bg-4: #39cdcc0f,
+//     bg-5: #545f7d33,
+//     bg-6: #fbfbfb,
+//     bg-7: #ffffff,
+//     text-1: #000000cc,
+//     text-2: #213f7d,
+//     text-3: #39cdcc,
+//     text-4: #545f7d,
+//     text-5: #545f7d99
+//   ),
+//   // Header Colors
+//   header: (
+//     bg-1: #ffffff33,
+//     text-1: #545f7db2
+//   ),
+//   // Button Colors
+//   button: (
+//     bg-1: #39cd620f,
+//     bg-2: #545f7d0f,
+//     bg-3: #e4033b19,
+//     bg-4: #e9b20019,
+//     text-1: #39cd62,
+//     text-2: #e4033b,
+//     text-3: #e9b200
+//   )
+// );
 
-// SCSS Mixins
-@mixin flex-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+// // SCSS Mixins
+// @mixin flex-center {
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+// }
 
-@mixin flex-between {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+// @mixin flex-between {
+//   display: flex;
+//   align-items: center;
+//   justify-content: space-between;
+// }
 
-@mixin button-base {
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.375rem;
-  font-weight: 500;
-  transition: all 0.2s ease-in-out;
-  cursor: pointer;
-  border: none;
+// @mixin button-base {
+//   padding: 0.75rem 1.5rem;
+//   border-radius: 0.375rem;
+//   font-weight: 500;
+//   transition: all 0.2s ease-in-out;
+//   cursor: pointer;
+//   border: none;
   
-  &:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
+//   &:hover {
+//     transform: translateY(-1px);
+//     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+//   }
   
-  &:active {
-    transform: translateY(0);
-  }
+//   &:active {
+//     transform: translateY(0);
+//   }
   
-  &:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    transform: none;
-  }
-}
+//   &:disabled {
+//     opacity: 0.6;
+//     cursor: not-allowed;
+//     transform: none;
+//   }
+// }
 
-@mixin card-shadow {
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+// @mixin card-shadow {
+//   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
   
-  &:hover {
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
-  }
-}
+//   &:hover {
+//     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+//   }
+// }
 
-// Function to get color from map
-@function get-color($category, $shade) {
-  @return map-get(map-get($colors, $category), $shade);
-}
+// // Function to get color from map
+// @function get-color($category, $shade) {
+//   @return map-get(map-get($colors, $category), $shade);
+// }
 
-// Utility classes for SCSS
-.scss-utilities {
-  // Flex utilities
-  .flex-center {
-    @include flex-center;
-  }
+// // Utility classes for SCSS
+// .scss-utilities {
+//   // Flex utilities
+//   .flex-center {
+//     @include flex-center;
+//   }
   
-  .flex-between {
-    @include flex-between;
-  }
+//   .flex-between {
+//     @include flex-between;
+//   }
   
-  // Button variants
-  .btn-primary {
-    @include button-base;
-    background-color: get-color(button, bg-1);
-    color: get-color(button, text-1);
-  }
+//   // Button variants
+//   .btn-primary {
+//     @include button-base;
+//     background-color: get-color(button, bg-1);
+//     color: get-color(button, text-1);
+//   }
   
-  .btn-secondary {
-    @include button-base;
-    background-color: get-color(button, bg-2);
-    color: get-color(global, text-4);
-  }
+//   .btn-secondary {
+//     @include button-base;
+//     background-color: get-color(button, bg-2);
+//     color: get-color(global, text-4);
+//   }
   
-  .btn-danger {
-    @include button-base;
-    background-color: get-color(button, bg-3);
-    color: get-color(button, text-2);
-  }
+//   .btn-danger {
+//     @include button-base;
+//     background-color: get-color(button, bg-3);
+//     color: get-color(button, text-2);
+//   }
   
-  .btn-warning {
-    @include button-base;
-    background-color: get-color(button, bg-4);
-    color: get-color(button, text-3);
-  }
+//   .btn-warning {
+//     @include button-base;
+//     background-color: get-color(button, bg-4);
+//     color: get-color(button, text-3);
+//   }
   
-  // Card utilities
-  .card {
-    @include card-shadow;
-    background-color: get-color(global, bg-7);
-    border-radius: 0.5rem;
-    padding: 1.5rem;
-  }
+//   // Card utilities
+//   .card {
+//     @include card-shadow;
+//     background-color: get-color(global, bg-7);
+//     border-radius: 0.5rem;
+//     padding: 1.5rem;
+//   }
   
-  // Text utilities
-  .text-primary {
-    color: get-color(global, text-2);
-  }
+//   // Text utilities
+//   .text-primary {
+//     color: get-color(global, text-2);
+//   }
   
-  .text-secondary {
-    color: get-color(global, text-4);
-  }
+//   .text-secondary {
+//     color: get-color(global, text-4);
+//   }
   
-  .text-accent {
-    color: get-color(global, text-3);
-  }
-}
+//   .text-accent {
+//     color: get-color(global, text-3);
+//   }
+// }
 
-// Responsive breakpoints
-$breakpoints: (
-  sm: 640px,
-  md: 768px,
-  lg: 1024px,
-  xl: 1280px,
-  2xl: 1536px
-);
+// // Responsive breakpoints
+// $breakpoints: (
+//   sm: 640px,
+//   md: 768px,
+//   lg: 1024px,
+//   xl: 1280px,
+//   2xl: 1536px
+// );
 
-@mixin respond-to($breakpoint) {
-  @if map-has-key($breakpoints, $breakpoint) {
-    @media (min-width: map-get($breakpoints, $breakpoint)) {
-      @content;
-    }
-  }
-}
+// @mixin respond-to($breakpoint) {
+//   @if map-has-key($breakpoints, $breakpoint) {
+//     @media (min-width: map-get($breakpoints, $breakpoint)) {
+//       @content;
+//     }
+//   }
+// }
 
-// Example responsive usage
-.responsive-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
+// // Example responsive usage
+// .responsive-grid {
+//   display: grid;
+//   grid-template-columns: 1fr;
+//   gap: 1rem;
   
-  @include respond-to(md) {
-    grid-template-columns: repeat(2, 1fr);
-  }
+//   @include respond-to(md) {
+//     grid-template-columns: repeat(2, 1fr);
+//   }
   
-  @include respond-to(lg) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
+//   @include respond-to(lg) {
+//     grid-template-columns: repeat(3, 1fr);
+//   }
+// }

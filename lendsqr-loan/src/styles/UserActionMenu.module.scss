@@ -1,0 +1,97 @@
+@import "./_variables.scss";
+
+.menuWrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.menuButton {
+  background: none;
+  border: none;
+  padding: 6px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &:hover {
+    background: #f3f6fa;
+  }
+}
+
+.dropdownMenu {
+  position: absolute;
+  right: 0;
+  top: 36px;
+  min-width: 180px;
+  background: #fff;
+  box-shadow: 0 4px 16px rgba(33, 63, 125, 0.12);
+  border-radius: 10px;
+  padding: 8px 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  animation: fadeIn 0.18s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdownItem {
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #213f7d;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+  border-radius: 6px;
+  &:hover {
+    background: #f3f6fa;
+    color: #1a2e52;
+  }
+}
+
+.blacklist {
+//   color: #e4033b;
+  &:hover {
+    background: #fdecea;
+    color: #b8002e;
+  }
+}
+
+.activate {
+//   color: #39cd62;
+  &:hover {
+    background: #e5f4ea;
+    color: #249d44;
+  }
+}
+
+@media (max-width: 600px) {
+  .dropdownMenu {
+    min-width: 140px;
+    right: 0;
+    top: 32px;
+    padding: 4px 0;
+  }
+  .dropdownItem {
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+}

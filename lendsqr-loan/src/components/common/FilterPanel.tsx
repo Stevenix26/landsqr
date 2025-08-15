@@ -1,121 +1,7 @@
-// import React from "react";
-// import styles from "@/styles/FilterPanel.module.scss";
-// import type { ApiUser } from "@/types/users";
-
-// interface FilterPanelProps {
-//   filters: {
-//     organization: string;
-//     username: string;
-//     email: string;
-//     date: string;
-//     phoneNumber: string;
-//     status: string;
-//   };
-//   onChange: (
-//     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-//   ) => void;
-//   onApply: () => void;
-//   onReset: () => void;
-//   onClose: () => void;
-//   users: ApiUser[]; // full user objects
-// }
-
-// const FilterPanel: React.FC<FilterPanelProps> = ({
-//   filters,
-//   onChange,
-//   onApply,
-//   onReset,
-//   onClose,
-//   users,
-// }) => {
-//   // Unique organizations
-//   const organizations = Array.from(
-//     new Set(users.map((user) => user.organization))
-//   );
-
-//   return (
-//     <div className={styles.panel}>
-//       <div className={styles.header}>
-//         <h3>Filter Users</h3>
-//         <button onClick={onClose} className={styles.closeBtn}>
-//           ×
-//         </button>
-//       </div>
-
-//       <label>
-//         Organization:
-//         <select
-//           name="organization"
-//           value={filters.organization}
-//           onChange={onChange}
-//         >
-//           <option value="">Select Organization</option>
-//           {organizations.map((org) => (
-//             <option key={org} value={org}>
-//               {org}
-//             </option>
-//           ))}
-//         </select>
-//       </label>
-
-//       <label>
-//         Username:
-//         <input name="username" value={filters.username} onChange={onChange} />
-//       </label>
-
-//       <label>
-//         Email:
-//         <input name="email" value={filters.email} onChange={onChange} />
-//       </label>
-
-//       <label>
-//         Date:
-//         <input
-//           type="date"
-//           name="date"
-//           value={filters.date}
-//           onChange={onChange}
-//         />
-//       </label>
-
-//       <label>
-//         Phone Number:
-//         <input
-//           name="phoneNumber"
-//           value={filters.phoneNumber}
-//           onChange={onChange}
-//         />
-//       </label>
-
-//       <label>
-//         Status:
-//         <select name="status" value={filters.status} onChange={onChange}>
-//           <option value="">Any</option>
-//           <option value="Active">Active</option>
-//           <option value="Inactive">Inactive</option>
-//           <option value="Blacklisted">Blacklisted</option>
-//           <option value="Pending">Pending</option>
-//         </select>
-//       </label>
-
-//       <div className={styles.actions}>
-//         <button onClick={onReset} className={styles.resetBtn}>
-//           Reset
-//         </button>
-//         <button onClick={onApply} className={styles.applyBtn}>
-//           Apply
-//         </button>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default FilterPanel;
-
 import React from "react";
 import styles from "@/styles/FilterPanel.module.scss";
 import type { ApiUser } from "@/types/users";
-
+import Image from "next/image";
 interface FilterPanelProps {
   filters: {
     organization: string;
@@ -153,6 +39,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
           ×
         </button>
       </div>
+
       <div className={styles.panelBody}>
         <label>
           Organization:
@@ -201,6 +88,12 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
             onChange={onChange}
             aria-label="Date"
             placeholder="Date"
+          />
+          <Image 
+            src="/images/dates.svg"
+            alt= "date image"
+            width={20}
+            height={20}
           />
         </label>
 

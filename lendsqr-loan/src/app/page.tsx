@@ -5,7 +5,7 @@ import Login from "@/app/(auth)/login/page"; // Adjust the import path as necess
 export default function Home() {
   return (
     <>
-    <Login />
+    <Login/>
     </>
      );
 }

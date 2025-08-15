@@ -14,6 +14,8 @@ interface UsersTableProps {
 const UsersTable: React.FC<UsersTableProps> = ({ users }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
+
+  // keep your exact showFilter + filters state
   const [showFilter, setShowFilter] = useState<string | null>(null);
   const [filters, setFilters] = useState({
     organization: "",
@@ -23,7 +25,13 @@ const UsersTable: React.FC<UsersTableProps> = ({ users }) => {
     phoneNumber: "",
     status: "",
   });
-
+  React.useEffect(() => {
+    if (showFilter === "mobile") {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+  }, [showFilter]);
   const handleBlacklist = (id: string) => {
     console.log("Blacklist user:", id);
     // Add your API call here
@@ -105,8 +113,26 @@ const UsersTable: React.FC<UsersTableProps> = ({ users }) => {
   };
 
   return (
-    <div>
-      <table className={Styles.container}>
+    <div className={Styles.container}>
+      {/* === Mobile filter trigger (visible when thead is hidden) === */}
+      <div className={Styles.mobileFilterTrigger}>
+        <button
+          className={Styles.mobileFilterBtn}
+          onClick={() =>
+            setShowFilter(showFilter === "mobile" ? null : "mobile")
+          }
+        >
+          <Image
+            src="/images/img_filter_results_button.svg"
+            alt="Filter"
+            width={18}
+            height={18}
+          />
+          Filter
+        </button>
+      </div>
+
+      <table className={Styles.tableContainer}>
         <thead>
           <tr>
             {[
@@ -116,7 +142,6 @@ const UsersTable: React.FC<UsersTableProps> = ({ users }) => {
               "Phone Number",
               "Date Joined",
               "Status",
-              "Actions",
             ].map((header) => (
               <th key={header}>
                 <div className={Styles.th_content}>
@@ -141,7 +166,7 @@ const UsersTable: React.FC<UsersTableProps> = ({ users }) => {
                             onApply={handleApply}
                             onReset={handleReset}
                             onClose={() => setShowFilter(null)}
-                            users={users} // pass full objects here
+                            users={users}
                           />
                         </div>
                       )}
@@ -156,8 +181,8 @@ const UsersTable: React.FC<UsersTableProps> = ({ users }) => {
         <tbody>
           {currentUsers.map((user) => (
             <tr key={user.id}>
-              <td>{user.organization}</td>
-              <td>
+              <td data-label="Organization">{user.organization}</td>
+              <td data-label="Username">
                 <Link
                   href={`/dashboard/usersDetails/${user.id}`}
                   className={Styles.username_link}
@@ -165,9 +190,13 @@ const UsersTable: React.FC<UsersTableProps> = ({ users }) => {
                   {user.username}
                 </Link>
               </td>
-              <td className={Styles.break_all}>{user.email}</td>
-              <td>{user.phoneNumber.replace("+234", "0")}</td>
-              <td>
+              <td className={Styles.break_all} data-label="Email">
+                {user.email}
+              </td>
+              <td data-label="Phone number">
+                {user.phoneNumber.replace("+234", "0")}
+              </td>
+              <td data-label="Date joined">
                 {`${new Date(user.dateJoined).toLocaleDateString("en-US", {
                   month: "long",
                   day: "numeric",
@@ -178,7 +207,7 @@ const UsersTable: React.FC<UsersTableProps> = ({ users }) => {
                   hour12: true,
                 })}`}
               </td>
-              <td>
+              <td data-label="Status">
                 <button
                   className={`${Styles.status_btn} ${getStatusVariant(
                     user.status
@@ -187,7 +216,7 @@ const UsersTable: React.FC<UsersTableProps> = ({ users }) => {
                   {user.status}
                 </button>
               </td>
-              <td className={Styles.actions}>
+              <td className={Styles.actions} data-label="Actions">
                 <UserActionsMenu
                   userId={user.id}
                   onBlacklist={handleBlacklist}
@@ -228,19 +257,19 @@ const UsersTable: React.FC<UsersTableProps> = ({ users }) => {
             {"<"}
           </button>
           {[1, 2, 3].map((page) => (
-            <button
+            <span
               key={page}
               onClick={() => setCurrentPage(page)}
               className={page === currentPage ? Styles.active : ""}
             >
               {page}
-            </button>
+            </span>
           ))}
           <span>...</span>
           {[totalPages - 1, totalPages].map((page) => (
-            <button key={page} onClick={() => setCurrentPage(page)}>
+            <span key={page} onClick={() => setCurrentPage(page)}>
               {page}
-            </button>
+            </span>
           ))}
           <button
             disabled={currentPage === totalPages}
@@ -250,6 +279,26 @@ const UsersTable: React.FC<UsersTableProps> = ({ users }) => {
           </button>
         </div>
       </div>
+
+      {/* === Mobile full-screen overlay for filter === */}
+      {showFilter === "mobile" && (
+        <div
+          className={Styles.mobileFilterOverlay}
+          role="dialog"
+          aria-modal="true"
+        >
+          <div className={Styles.mobileFilterSheet}>
+            <FilterPanel
+              filters={filters}
+              onChange={handleChange}
+              onApply={handleApply}
+              onReset={handleReset}
+              onClose={() => setShowFilter(null)}
+              users={users}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -258,11 +258,18 @@
   .toggleButton {
     display: none;
     padding: 1rem;
-    background: $primary;
+    // background: $primary;
     border: none;
     cursor: pointer;
     font-size: 1.5rem;
-    color: #333;
+    border-radius: 50%;
+    // color: #333;
+    &:hover {
+      background: $login;
+    }
+    &:active {
+      background: adjust-color($login, $lightness: -10%);
+    }
   }
   .inner {
     padding: 1rem;
@@ -362,7 +369,7 @@
 
   /* Mobile overlay mode */
   @media (max-width: 1023px) {
-    position:fixed;
+    position: fixed;
     left: -250px;
     top: 0;
     height: 100%;
@@ -396,10 +403,10 @@
       border-radius: 60px;
 
       &:hover {
-        background: darken($login, 5%);
+        background: darken(#f3f6fa, 5%);
       }
       &:active {
-        background: darken($login, 10%);
+        background: adjust-color($login, $lightness: -10%);
       }
     }
   }

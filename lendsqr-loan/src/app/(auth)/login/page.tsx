@@ -1,92 +1,100 @@
 "use client";
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
-import Image from "next/image";
-import styles from "@/styles/login.module.scss"; // Adjust the path as necessary
 
-const Login = () => {
-  const [showPassword, setShowPassword] = useState(false);
+import React, { useState } from "react";
+import styles from "@/styles/login.module.scss";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+
+export default function LoginPage() {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate login: store a token in localStorage
-    if (email && password) {
-      localStorage.setItem("lendsqr_token", "dummy_token");
+
+    // Fake login check
+    if (email === "test@lendsqr.com" && password === "password") {
+      localStorage.setItem("lendsqr_token", "fake-jwt-token");
       router.push("/dashboard");
+    } else {
+      setError("Invalid email or password");
     }
   };
 
   return (
-    <>
-      <div className={styles.loginContainer}>
-        <div className={styles.leftPanel}>
-          <div className={styles.logoWrapper}>
-            <Image
-              src="/images/Group.svg"
-              alt="Lendsqr Logo"
-              width={173.76}
-              height={36}
-              priority
-            />
-          </div>
-          <div className={styles.illustrationWrapper}>
-            <Image
-              src="/images/loginWalk.png"
-              alt="Login Illustration"
-              width={600}
-              height={337.57}
-              priority
-            />
-          </div>
+    <div className={styles.loginContainer}>
+      {/* ===== Left Panel ===== */}
+      <div className={styles.leftPanel}>
+        <div className={styles.logoWrapper}>
+          <Image src="/images/lendsqr.svg" alt="Logo" width={150} height={40} />
         </div>
-        <section className={styles.rightPane}>
-          <div className={styles.formWrapper}>
-            <h1 className={styles.welcome}>Welcome!</h1>
-            <p className={styles.subtitle}>Enter details to login.</p>
-            <form className={styles.form} onSubmit={handleSubmit}>
-              <div className={styles.passwordWrapper}>
-                <input
-                  type="email"
-                  placeholder="Email"
-                  className={styles.input}
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-              </div>
+        <div className={styles.illustrationWrapper}>
+          <Image
+            src="/images/login-illustration.png"
+            alt="Illustration"
+            width={500}
+            height={500}
+          />
+        </div>
+      </div>
+
+      {/* ===== Right Panel ===== */}
+      <div className={styles.rightPane}>
+        <div className={styles.formWrapper}>
+          <h1 className={styles.welcome}>Welcome!</h1>
+          <p className={styles.subtitle}>Enter details to login.</p>
+
+          <form onSubmit={handleLogin} className={styles.form}>
+            <div className={styles.inputGroup}>
+              <label className={styles.label}>Email</label>
+              <input
+                type="email"
+                className={styles.input}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Email"
+                required
+              />
+            </div>
+
+            <div className={styles.inputGroup}>
+              <label className={styles.label}>Password</label>
               <div className={styles.passwordWrapper}>
                 <input
                   type={showPassword ? "text" : "password"}
-                  placeholder="Password"
                   className={styles.input}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Password"
                   required
                 />
-                <span
+                <button
+                  type="button"
                   className={styles.showPassword}
-                  onClick={() => setShowPassword((s) => !s)}
-                  tabIndex={0}
-                  role="button"
+                  onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? "HIDE" : "SHOW"}
-                </span>
+                </button>
               </div>
-              <a href="#" className={styles.forgotPassword}>
-                FORGOT PASSWORD?
-              </a>
-              <button type="submit" className={styles.loginButton}>
-                LOG IN
-              </button>
-            </form>
-          </div>
-        </section>
-      </div>
-    </>
-  );
-};
+            </div>
 
-export default Login;
+            <a href="#" className={styles.forgotPassword}>
+              FORGOT PASSWORD?
+            </a>
+
+            {error && (
+              <p style={{ color: "red", fontSize: "0.9rem" }}>{error}</p>
+            )}
+
+            <button type="submit" className={styles.loginButton}>
+              LOG IN
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+}
