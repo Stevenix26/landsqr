@@ -1,0 +1,73 @@
+@import "@/styles/_variables.scss";
+
+.filterBox {
+  background: $background;
+  border: 1px solid $secondary;
+  border-radius: 8px;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: $secondary;
+  }
+
+  input,
+  select {
+    padding: 10px;
+    border: 1px solid $secondary;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+
+    &:focus {
+      border-color: $primary;
+    }
+  }
+}
+
+.actionButtons {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 10px;
+
+  .reset {
+    background: transparent;
+    border: 1px solid $secondary;
+    color: $secondary;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: $secondary;
+      color: $background;
+    }
+  }
+
+  .filter {
+    background: $primary;
+    border: none;
+    color: $background;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+}

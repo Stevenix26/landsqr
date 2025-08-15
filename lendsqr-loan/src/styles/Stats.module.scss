@@ -1,28 +1,7 @@
-$primary: #213f7d;
-$secondary: #545f7d;
-$login: #39cdcc;
-$error: #e4033b;
-$background: #fff;
-$form-bg: #fafbff;
-$font-base: var(--font-work-sans), var(--font-avenir-next), Arial, sans-serif;
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-    --login: #39cdcc;
-    --primary: #213f7d;
-    --secondary: #545f7d;
-    --error: #e4033b;
-    --font-family-base: #{$font-base};
-  }
-}
-
-:root {
-  font-family: var(--font-work-sans);
-}
+@import './variables';
 
 .container {
+  font-family: var(--font-work-sans);
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 16px;

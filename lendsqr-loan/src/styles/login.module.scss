@@ -38,23 +38,31 @@ $font-base: var(--font-work-sans), var(--font-avenir-next), Arial, sans-serif;
 .loginContainer {
   display: flex;
   background: var(--background);
-  height: 680px;
-  min-height: 120vh;
+  min-height: 100vh;
   flex-direction: row;
-
+  justify-content: center;
+  align-items: stretch;
   @media (max-width: 900px) {
     flex-direction: column;
+    min-height: 100vh;
+    height: auto;
   }
 }
 
 .leftPanel {
-  flex: 0;
+  flex: 1 1 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   background: $background;
   position: relative;
+  min-width: 300px;
+  @media (max-width: 900px) {
+    min-width: 0;
+    width: 100%;
+    padding: 2rem 0 1rem 0;
+  }
 }
 
 .logoWrapper {
@@ -63,14 +71,13 @@ $font-base: var(--font-work-sans), var(--font-avenir-next), Arial, sans-serif;
   top: 106px;
   left: 97px;
   position: absolute;
-
   @media (max-width: 900px) {
     position: static;
     margin: 2rem auto 1rem auto;
     display: flex;
     justify-content: center;
-    left: 97px;
-    top: 106px;
+    left: 0;
+    top: 0;
   }
   @media (max-width: 600px) {
     max-width: 200px;
@@ -81,12 +88,9 @@ $font-base: var(--font-work-sans), var(--font-avenir-next), Arial, sans-serif;
 }
 
 .illustrationWrapper {
-  /* width: 600px;
-  height: 337.57px; */
   left: 67px;
   top: 281px;
-
-  @media (max-width: 900px) and (min-width: 300px) {
+  @media (max-width: 900px) {
     display: none !important;
   }
   @media (max-width: 600px) {
@@ -104,11 +108,17 @@ $font-base: var(--font-work-sans), var(--font-avenir-next), Arial, sans-serif;
 }
 
 .rightPane {
-  flex: 1;
+  flex: 2 1 0;
   display: flex;
   align-items: center;
   justify-content: center;
   background: $form-bg;
+  min-width: 300px;
+  @media (max-width: 900px) {
+    min-width: 0;
+    width: 100%;
+    padding: 2rem 0;
+  }
 }
 
 .formWrapper {
@@ -116,21 +126,20 @@ $font-base: var(--font-work-sans), var(--font-avenir-next), Arial, sans-serif;
   max-width: 400px;
   background: $form-bg;
   padding: 2rem 2.5rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 16px rgba(44, 62, 80, 0.04);
-
-  // @media (max-width: 900px) {
-  //   margin: 0 auto;
-  //   max-width: 95vw;
-  //   padding: 2rem 1rem;
-  //   box-shadow: none;
-  // }
-  // @media (max-width: 600px) {
-  //   max-width: 100vw;
-  //   padding: 1.2rem 0.5rem;
-  //   border-radius: 0;
-  //   box-shadow: none;
-  // }
+  border-radius: 12px;
+  box-shadow: 0 2px 16px rgba(44, 62, 80, 0.08);
+  @media (max-width: 900px) {
+    margin: 0 auto;
+    max-width: 95vw;
+    padding: 2rem 1rem;
+    box-shadow: none;
+  }
+  @media (max-width: 600px) {
+    max-width: 100vw;
+    padding: 1.2rem 0.5rem;
+    border-radius: 0;
+    box-shadow: none;
+  }
 }
 
 .welcome {
@@ -146,6 +155,10 @@ $font-base: var(--font-work-sans), var(--font-avenir-next), Arial, sans-serif;
 .subtitle {
   color: $secondary;
   margin-bottom: 2rem;
+  font-size: 1rem;
+  @media (max-width: 600px) {
+    font-size: 0.95rem;
+  }
 }
 
 .form {
@@ -159,27 +172,22 @@ $font-base: var(--font-work-sans), var(--font-avenir-next), Arial, sans-serif;
   padding: 0.9rem 1rem;
   border: 2px solid rgba($secondary, 0.2);
   border-radius: 5px;
-  font-size: 14px;
+  font-size: 1rem;
   outline: none;
   background: #fff;
   color: $secondary;
-  width: 447px;
+  width: 100%;
   height: 50px;
-  opacity: 1;
-  top: 442px;
-  left: 836px;
   display: flex;
   align-items: center;
   letter-spacing: 0%;
   line-height: 100%;
-
-  @media (max-width: 900px) {
-    width: 100%;
-    min-width: 0;
+  transition: border-color 0.2s;
+  &:focus {
+    border-color: $primary;
   }
   @media (max-width: 600px) {
-    width: 100%;
-    font-size: 1rem;
+    font-size: 0.95rem;
     height: 44px;
     padding: 0.7rem 0.8rem;
   }
@@ -201,8 +209,11 @@ $font-base: var(--font-work-sans), var(--font-avenir-next), Arial, sans-serif;
   font-size: 12px;
   cursor: pointer;
   user-select: none;
-  font-weight: 600;
   letter-spacing: 10%;
+  transition: color 0.2s;
+  &:hover {
+    color: darken($login, 10%);
+  }
 }
 
 .forgotPassword {
@@ -212,25 +223,46 @@ $font-base: var(--font-work-sans), var(--font-avenir-next), Arial, sans-serif;
   text-decoration: none;
   margin-bottom: 1.2rem;
   display: inline-block;
+  transition: color 0.2s;
+  &:hover {
+    color: darken($login, 10%);
+    text-decoration: underline;
+  }
+}
+
+.errorMessage {
+  color: $error;
+  background: rgba($error, 0.08);
+  border-radius: 5px;
+  padding: 0.7rem 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.98rem;
+  text-align: center;
+  font-weight: 500;
+  border: 1px solid rgba($error, 0.15);
 }
 
 .loginButton {
   background: $login;
   color: #fff;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 1rem;
   border: none;
   border-radius: 8px;
   padding: 0.9rem 0;
   cursor: pointer;
-  transition: background 0.2s;
-
+  transition: background 0.2s, opacity 0.2s;
+  opacity: 1;
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
   @media (max-width: 600px) {
-    font-size: 1rem;
+    font-size: 0.95rem;
     padding: 0.7rem 0;
   }
 }
 
-.loginButton:hover {
+.loginButton:hover:not(:disabled) {
   background: darken($login, 10%);
 }

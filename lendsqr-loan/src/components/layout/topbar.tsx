@@ -100,21 +100,110 @@
 
 // export default Topbar;
 
+// "use client";
+// import { useState } from "react";
+// import Image from "next/image";
+// import styles from "@/styles/topbar.module.scss";
+
+// export default function Topbar() {
+//   const [searchQuery, setSearchQuery] = useState("");
+
+//   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+//     e.preventDefault();
+//     setSearchQuery(e.target.value);
+//   };
+
+//   return (
+//     <header className={styles.topbar}>
+//       <div className={styles.logo}>
+//         <Image
+//           src="/images/Group.svg"
+//           alt="Lendsqr Logo"
+//           width={173.76}
+//           height={36}
+//           priority
+//         />
+//       </div>
+//       {/* Search */}
+//       <div className={styles.searchBox}>
+//         <input
+//           onChange={(e) => handleSearchChange(e)}
+//           type="text"
+//           value={searchQuery}
+//           placeholder="Search for anything"
+//           aria-label="Search for anything"
+//         />
+//         <button>
+//           <Image
+//             src="/images/search.svg"
+//             alt="Search Icon"
+//             width={12}
+//             height={14}
+//             priority
+//           />
+//         </button>
+//       </div>
+
+//       <div className={styles.rightSection}>
+//         <a href="#" className={styles.docsLink}>
+//           Docs
+//         </a>
+//         <div className={styles.icon}>
+//           <Image
+//             src="/images/img_np_notification.svg"
+//             alt="Notifications"
+//             width={39}
+//             height={24}
+//             priority
+//           />
+//         </div>
+//         <div className={styles.profile}>
+//           <Image
+//             className={styles.avatar}
+//             src="/images/ladies.png"
+//             alt="User Avatar"
+//             width={40}
+//             height={40}
+//           />
+//           <span className={styles.username}>Adedeji</span>
+//           <span className={styles.dropdownArrow}>▼</span>
+//         </div>
+//       </div>
+//     </header>
+//   );
+// }
+
+// components/layout/topbar.tsx
 "use client";
 import { useState } from "react";
 import Image from "next/image";
 import styles from "@/styles/topbar.module.scss";
 
-export default function Topbar() {
+type TopbarProps = {
+  onToggleSidebar: () => void;
+  onSearch?: (query: string) => void;
+  sidebarCollapsed?: boolean; // for aria state
+};
+
+export default function Topbar({ onToggleSidebar, onSearch, sidebarCollapsed }: TopbarProps) {
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSearchQuery(value);
+    onSearch?.(value); // live search (optional)
+  };
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setSearchQuery(e.target.value);
+    onSearch?.(searchQuery.trim());
   };
 
   return (
     <header className={styles.topbar}>
+      {/* Mobile hamburger to toggle sidebar */}
+
+      {/* Logo */}
       <div className={styles.logo}>
         <Image
           src="/images/Group.svg"
@@ -124,16 +213,17 @@ export default function Topbar() {
           priority
         />
       </div>
+
       {/* Search */}
-      <div className={styles.searchBox}>
+      <form className={styles.searchBox} onSubmit={handleSearchSubmit}>
         <input
-          onChange={(e) => handleSearchChange(e)}
           type="text"
           value={searchQuery}
+          onChange={handleSearchChange}
           placeholder="Search for anything"
           aria-label="Search for anything"
         />
-        <button>
+        <button type="submit" aria-label="Search">
           <Image
             src="/images/search.svg"
             alt="Search Icon"
@@ -142,8 +232,9 @@ export default function Topbar() {
             priority
           />
         </button>
-      </div>
+      </form>
 
+      {/* Right Section */}
       <div className={styles.rightSection}>
         <a href="#" className={styles.docsLink}>
           Docs
@@ -169,6 +260,15 @@ export default function Topbar() {
           <span className={styles.dropdownArrow}>▼</span>
         </div>
       </div>
+      <button
+        className={styles.menuButton}
+        aria-label={sidebarCollapsed ? "Open sidebar" : "Close sidebar"}
+        aria-expanded={!sidebarCollapsed}
+        onClick={onToggleSidebar}
+      >
+        ☰
+      </button>
     </header>
   );
 }
+

@@ -1,0 +1,19 @@
+$background: #ffffff;
+$background-dark: #0a0a0a;
+$foreground: #171717;
+$foreground-dark: #ededed;
+$login: #39cdcc;
+$primary: #213f7d;
+$secondary: #545f7d;
+$error: #e4033b;
+$font-base: var(--font-work-sans), var(--font-avenir-next), Arial;
+
+:root {
+    --background: #ffffff;
+    --foreground: #171717;
+    --color-login: #39cdcc;
+    --color-primary: #213f7d;
+    --color-secondary: #545f7d;
+    --color-error: #e4033b;
+    --font-family-base: #{$font-base};
+}

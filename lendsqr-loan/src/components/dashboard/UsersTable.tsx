@@ -1,54 +1,112 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import Image from "next/image";
-import type { User } from "@/types/users";
 import Link from "next/link";
+import type { ApiUser } from "@/types/users";
+import Styles from "@/styles/UserTable.module.scss";
+import FilterPanel from "../common/FilterPanel";
+import UserActionsMenu from "../common/UserActionMenu";
 
 interface UsersTableProps {
-  users: User[];
+  users: ApiUser[];
 }
 
 const UsersTable: React.FC<UsersTableProps> = ({ users }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(100);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [showFilter, setShowFilter] = useState<string | null>(null);
+  const [filters, setFilters] = useState({
+    organization: "",
+    username: "",
+    email: "",
+    date: "",
+    phoneNumber: "",
+    status: "",
+  });
 
-  const totalPages = Math.ceil(users.length / itemsPerPage);
+  const handleBlacklist = (id: string) => {
+    console.log("Blacklist user:", id);
+    // Add your API call here
+  };
+
+  const handleActivate = (id: string) => {
+    console.log("Activate user:", id);
+    // Add your API call here
+  };
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setFilters((prev) => ({ ...prev, [name]: value }));
+    setCurrentPage(1);
+  };
+
+  const handleApply = () => {
+    setCurrentPage(1);
+    setShowFilter(null);
+  };
+
+  const handleReset = () => {
+    setFilters({
+      organization: "",
+      username: "",
+      email: "",
+      date: "",
+      phoneNumber: "",
+      status: "",
+    });
+    setCurrentPage(1);
+    setShowFilter(null);
+  };
+
+  const filteredUsers = useMemo(() => {
+    return users.filter((user) => {
+      return (
+        (!filters.organization ||
+          user.organization
+            .toLowerCase()
+            .includes(filters.organization.toLowerCase())) &&
+        (!filters.username ||
+          user.username
+            .toLowerCase()
+            .includes(filters.username.toLowerCase())) &&
+        (!filters.email ||
+          user.email.toLowerCase().includes(filters.email.toLowerCase())) &&
+        (!filters.date || user.dateJoined.startsWith(filters.date)) &&
+        (!filters.phoneNumber ||
+          user.phoneNumber.includes(filters.phoneNumber)) &&
+        (!filters.status ||
+          user.status.toLowerCase() === filters.status.toLowerCase())
+      );
+    });
+  }, [users, filters]);
+
+  const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentUsers = users.slice(startIndex, startIndex + itemsPerPage);
+  const currentUsers = filteredUsers.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  );
 
-  const getStatusVariant = (status: User["status"]) => {
+  const getStatusVariant = (status: ApiUser["status"]) => {
     switch (status) {
       case "Active":
-        return {
-          variant: "primary" as const,
-          className: "bg-button-1 text-button-1",
-        };
+        return Styles.status_active;
       case "Inactive":
-        return {
-          variant: "inactive" as const,
-          className: "bg-button-2 text-global-4",
-        };
+        return Styles.status_inactive;
       case "Pending":
-        return {
-          variant: "secondary" as const,
-          className: "bg-button-4 text-button-3",
-        };
+        return Styles.status_pending;
       case "Blacklisted":
-        return {
-          variant: "danger" as const,
-          className: "bg-button-3 text-button-2",
-        };
+        return Styles.status_blacklisted;
       default:
-        return {
-          variant: "inactive" as const,
-          className: "bg-button-2 text-global-4",
-        };
+        return Styles.status_inactive;
     }
   };
 
   return (
     <div>
-      <table className="container">
+      <table className={Styles.container}>
         <thead>
           <tr>
             {[
@@ -58,49 +116,83 @@ const UsersTable: React.FC<UsersTableProps> = ({ users }) => {
               "Phone Number",
               "Date Joined",
               "Status",
+              "Actions",
             ].map((header) => (
               <th key={header}>
-                <div className="th-content">
+                <div className={Styles.th_content}>
                   {header}
-                  <Image
-                    src="/images/img_filter_results_button.svg"
-                    alt="Filter"
-                    width={16}
-                    height={16}
-                    className="filter-icon"
-                  />
+                  {header !== "Actions" && (
+                    <div className={Styles.filterWrapper}>
+                      <Image
+                        src="/images/img_filter_results_button.svg"
+                        alt="Filter"
+                        width={16}
+                        height={16}
+                        className={Styles.filter_icon}
+                        onClick={() =>
+                          setShowFilter(showFilter === header ? null : header)
+                        }
+                      />
+                      {showFilter === header && (
+                        <div className={Styles.filterDropdown}>
+                          <FilterPanel
+                            filters={filters}
+                            onChange={handleChange}
+                            onApply={handleApply}
+                            onReset={handleReset}
+                            onClose={() => setShowFilter(null)}
+                            users={users} // pass full objects here
+                          />
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
               </th>
             ))}
           </tr>
         </thead>
+
         <tbody>
           {currentUsers.map((user) => (
             <tr key={user.id}>
               <td>{user.organization}</td>
               <td>
                 <Link
-                  href={`/user-details?id=${user.id}`}
-                  className="username-link"
+                  href={`/dashboard/usersDetails/${user.id}`}
+                  className={Styles.username_link}
                 >
                   {user.username}
                 </Link>
               </td>
-              <td className="break-all">{user.email}</td>
-              <td>{user.phoneNumber}</td>
-              <td>{user.dateJoined}</td>
+              <td className={Styles.break_all}>{user.email}</td>
+              <td>{user.phoneNumber.replace("+234", "0")}</td>
               <td>
-                <button className={`status-btn`}>{user.status}</button>
+                {`${new Date(user.dateJoined).toLocaleDateString("en-US", {
+                  month: "long",
+                  day: "numeric",
+                  year: "numeric",
+                })} ${new Date(user.dateJoined).toLocaleTimeString("en-US", {
+                  hour: "numeric",
+                  minute: "2-digit",
+                  hour12: true,
+                })}`}
               </td>
-              <td className="actions">
-                <button>
-                  <Image
-                    src="/images/img_ic_more_vert_18px.svg"
-                    alt="More"
-                    width={20}
-                    height={20}
-                  />
+              <td>
+                <button
+                  className={`${Styles.status_btn} ${getStatusVariant(
+                    user.status
+                  )}`}
+                >
+                  {user.status}
                 </button>
+              </td>
+              <td className={Styles.actions}>
+                <UserActionsMenu
+                  userId={user.id}
+                  onBlacklist={handleBlacklist}
+                  onActivate={handleActivate}
+                />
               </td>
             </tr>
           ))}
@@ -108,43 +200,38 @@ const UsersTable: React.FC<UsersTableProps> = ({ users }) => {
       </table>
 
       {/* Pagination */}
-      <div className="pagination">
-        <div className="items-info">
+      <div className={Styles.pagination}>
+        <div className={Styles.items_info}>
           Showing
-          <button className="items-btn">
-            {itemsPerPage}
-            <Image
-              src="/images/img_np_next_2236826_000000.svg"
-              alt="Dropdown"
-              width={14}
-              height={14}
-            />
-          </button>
-          out of {users.length}
+          <select
+            className={Styles.items_btn}
+            value={itemsPerPage}
+            onChange={(e) => {
+              setItemsPerPage(Number(e.target.value));
+              setCurrentPage(1);
+            }}
+          >
+            {[10, 25, 50, 100].map((num) => (
+              <option key={num} value={num}>
+                {num}
+              </option>
+            ))}
+          </select>
+          out of {filteredUsers.length}
         </div>
-        <div className="page-nav">
+
+        <div className={Styles.page_nav}>
           <button
             disabled={currentPage === 1}
             onClick={() => setCurrentPage(currentPage - 1)}
           >
-            <svg
-              width="8"
-              height="12"
-              viewBox="0 0 8 12"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M7.00609 10.0573C7.84719 10.8984 6.54344 12.1595 5.745 11.3184L0.994244 6.56759C0.61581 6.23127 0.61581 5.64282 0.994244 5.3065L5.61858 0.640017C6.45967 -0.158963 7.72082 1.10267 6.87967 1.94322L2.8859 5.937L7.00609 10.0573Z"
-                fill="#213F7D"
-              />
-            </svg>
+            {"<"}
           </button>
           {[1, 2, 3].map((page) => (
             <button
               key={page}
               onClick={() => setCurrentPage(page)}
-              className={page === currentPage ? "active" : ""}
+              className={page === currentPage ? Styles.active : ""}
             >
               {page}
             </button>
@@ -159,18 +246,7 @@ const UsersTable: React.FC<UsersTableProps> = ({ users }) => {
             disabled={currentPage === totalPages}
             onClick={() => setCurrentPage(currentPage + 1)}
           >
-            <svg
-              width="8"
-              height="12"
-              viewBox="0 0 8 12"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M0.993905 1.94274C0.152813 1.10165 1.45656 -0.159498 2.255 0.68165L7.00576 5.43241C7.38419 5.76873 7.38419 6.35718 7.00576 6.6935L2.38142 11.36C1.54033 12.159 0.279177 10.8973 1.12033 10.0568L5.1141 6.063L0.993905 1.94274Z"
-                fill="#213F7D"
-              />
-            </svg>
+            {">"}
           </button>
         </div>
       </div>

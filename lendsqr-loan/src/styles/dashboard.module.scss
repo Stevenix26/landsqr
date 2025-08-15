@@ -1,0 +1,62 @@
+/* layout.module.scss */
+@import "./_variables.scss";
+
+.dashboardLayout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: $background;
+  font-family: $font-base;
+}
+
+.topbar {
+  flex-shrink: 0;
+  // height: 64px;
+  background-color: $background;
+  // border-bottom: 1px solid $secondary;
+  // z-index: 100;
+  box-shadow: 0 2px 8px rgba(33, 63, 125, 0.04);
+  // display: flex;
+  // align-items: center;
+  // padding: 0 2rem;
+}
+
+.bodyWrapper {
+  display: flex;
+  flex: 1;
+  background: linear-gradient(90deg, #f8fafc 0%, #f3f4f6 100%);
+}
+
+.mainContent {
+  background-color: $background;
+  padding: 2.5rem 2rem;
+  border-radius: 16px;
+  margin: 2rem;
+  box-shadow: 0 4px 24px rgba(33, 63, 125, 0.08);
+  flex: 1;
+  transition: margin-left 0.3s ease;
+  min-height: calc(100vh - 96px);
+  overflow-y: auto;
+
+  @media (min-width: 1024px) {
+    // margin-left: 20px;
+  }
+
+  &.collapsed {
+    @media (min-width: 1024px) {
+      margin-left: 80px;
+    }
+  }
+}
+
+@media (max-width: 1023px) {
+  .mainContent {
+    margin: 1rem 0.5rem;
+    margin-left: 0;
+    border-radius: 8px;
+    padding: 1rem;
+  }
+  .topbar {
+    padding: 0 1rem;
+  }
+}

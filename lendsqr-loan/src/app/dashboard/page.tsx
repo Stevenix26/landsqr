@@ -1,5 +1,5 @@
 import React from "react";
-import UserDetails from "@/app/dashboard/userDetails/page";
+import UserDetails from "@/app/dashboard/user/page";
 
 
 const Dashboard = () => {

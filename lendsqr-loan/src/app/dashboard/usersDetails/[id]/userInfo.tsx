@@ -3,68 +3,16 @@ import React from "react";
 import Styles from "@/styles/UsersInfo.module.scss";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-interface UserInfo {
-  fullName: string;
-  phoneNumber: string;
-  email: string;
-  bvn: string;
-  gender: string;
-  maritalStatus: string;
-  numberOfDependents: string;
-  address: string;
-}
-
-interface EmploymentInfo {
-  education: string;
-  status: string;
-  sector: string;
-  duration: string;
-  officeEmail: string;
-  monthlyIncome: string;
-  loanRepayment: string;
-}
-
-interface SocialLinks {
-  twitter?: string;
-  facebook?: string;
-  instagram?: string;
-}
-
-interface Guarantor {
-  fullName: string;
-  phoneNumber: string;
-  email: string;
-  relationship: string;
-}
+import type { ApiUser } from "@/types/users";
 
 interface UserDetailsProps {
-  profileImage?: string;
-  fullName: string;
-  username: string;
-  userTier: number;
-  accountBalance: string;
-  accountNumber: string;
-  bankName: string;
-  personalInfo: UserInfo;
-  employmentInfo: EmploymentInfo;
-  socials: SocialLinks;
-  guarantors: Guarantor[];
+  user: ApiUser;
   onBlacklist?: () => void;
   onActivate?: () => void;
 }
 
 const UserInfo: React.FC<UserDetailsProps> = ({
-  profileImage,
-  fullName,
-  username,
-  userTier,
-  accountBalance,
-  accountNumber,
-  bankName,
-  personalInfo,
-  employmentInfo,
-  socials,
-  guarantors,
+  user,
   onBlacklist,
   onActivate,
 }) => {
@@ -74,10 +22,11 @@ const UserInfo: React.FC<UserDetailsProps> = ({
     <div className={Styles.userDetails}>
       {/* back to user */}
       <div className={Styles.backLink}>
-        <span onClick={() => router.back()}>
-          ← Back to Users
-        </span>
+        <span onClick={() => router.back()}>← Back to Users</span>
       </div>
+
+
+      {/* Actions */}
       <div className={Styles.actions}>
         <span>User Details</span>
         <div className={Styles.buttonSpace}>
@@ -90,14 +39,16 @@ const UserInfo: React.FC<UserDetailsProps> = ({
         </div>
       </div>
 
-      {/* Header */}
+      {/* User Header */}
       <div className={Styles.userContainer}>
         <div className={Styles.header}>
           <div className={Styles.profile}>
             <div className={Styles.avatarContainer}>
               <Image
-                src={profileImage || "/images/img_np_user_948637_000000.svg"}
-                alt={fullName}
+                src={
+                   "/images/img_np_user_948637_000000.svg"
+                }
+                alt={user.userInfo.fullName}
                 width={40}
                 height={40}
                 className={Styles.avatar}
@@ -105,8 +56,9 @@ const UserInfo: React.FC<UserDetailsProps> = ({
             </div>
 
             <div>
-              <h2>{fullName}</h2>
-              <p>{username}</p>
+              <h2>{user.userInfo.fullName}</h2>
+              <p>{user.username}</p>
+              <p>Status: {user.status}</p> {/* Added status */}
             </div>
           </div>
 
@@ -116,8 +68,8 @@ const UserInfo: React.FC<UserDetailsProps> = ({
           <div className={Styles.tier}>
             <p>User’s Tier</p>
             <div className={Styles.stars}>
-              {"★".repeat(userTier)}
-              {"☆".repeat(3 - userTier)}
+              {"★".repeat(user.userTier)}
+              {"☆".repeat(3 - user.userTier)}
             </div>
           </div>
 
@@ -125,9 +77,9 @@ const UserInfo: React.FC<UserDetailsProps> = ({
           <div className={Styles.line}></div>
 
           <div className={Styles.account}>
-            <h3>{accountBalance}</h3>
+            <h3>{user.accountBalance}</h3>
             <p>
-              {accountNumber}/{bankName}
+              {user.accountNumber}/{user.bankName}
             </p>
           </div>
         </div>
@@ -153,7 +105,7 @@ const UserInfo: React.FC<UserDetailsProps> = ({
         <section className={Styles.section}>
           <h4>Personal Information</h4>
           <div className={Styles.infoGrid}>
-            {Object.entries(personalInfo).map(([key, value]) => (
+            {Object.entries(user.userInfo).map(([key, value]) => (
               <div key={key}>
                 <p className={Styles.label}>{key.replace(/([A-Z])/g, " $1")}</p>
                 <p className={Styles.value}>{value}</p>
@@ -167,7 +119,7 @@ const UserInfo: React.FC<UserDetailsProps> = ({
         <section className={Styles.section}>
           <h4>Education and Employment</h4>
           <div className={Styles.infoGrid}>
-            {Object.entries(employmentInfo).map(([key, value]) => (
+            {Object.entries(user.employmentInfo).map(([key, value]) => (
               <div key={key}>
                 <p className={Styles.label}>{key.replace(/([A-Z])/g, " $1")}</p>
                 <p className={Styles.value}>{value}</p>
@@ -181,7 +133,7 @@ const UserInfo: React.FC<UserDetailsProps> = ({
         <section className={Styles.section}>
           <h4>Socials</h4>
           <div className={Styles.infoGrid}>
-            {Object.entries(socials).map(([key, value]) => (
+            {Object.entries(user.socials).map(([key, value]) => (
               <div key={key}>
                 <p className={Styles.label}>{key}</p>
                 <p className={Styles.value}>{value}</p>
@@ -192,7 +144,7 @@ const UserInfo: React.FC<UserDetailsProps> = ({
         <div className={Styles.Hline}></div>
 
         {/* Guarantors */}
-        {guarantors.map((guarantor, index) => (
+        {user.guarantors.map((guarantor, index) => (
           <section key={index} className={Styles.section}>
             <h4>Guarantor</h4>
             <div className={Styles.infoGrid}>

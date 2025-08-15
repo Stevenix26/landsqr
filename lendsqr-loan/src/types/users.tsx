@@ -1,44 +1,61 @@
-export interface User {
+
+
+export interface ApiUser {
   id: string;
   organization: string;
   username: string;
   email: string;
   phoneNumber: string;
   dateJoined: string;
-  status: string;
+  status: "Active" | "Inactive" | "Pending" | "Blacklisted";
+  profileImage: string;
+
+  userInfo: ApiUserInfo;
+  employmentInfo: EmploymentInfo;
+  socials: Socials;
+  guarantors: Guarantor[];
+
+  userTier: number;
+  accountBalance: string;
+  bankName: string;
+  accountNumber: number;
 }
 
-export interface UsersNow {
-  id: string;
+export interface ApiUserInfo {
   fullName: string;
-  phoneNumber: string;
-  emailAddress: string;
   bvn: string;
-  gender: string;
-  maritalStatus: string;
+  gender: "Male" | "Female";
+  maritalStatus: "Single" | "Married" | "Divorced";
   children: string;
-  typeOfResidence: string;
-  levelOfEducation: string;
-  employmentStatus: string;
-  sectorOfEmployment: string;
-  durationOfEmployment: string;
+  typeOfResidence: "Rented" | "Owned" | "Family House";
+  levelOfEducation: "High School" | "BSc" | "MSc" | "PhD";
+}
+
+export interface EmploymentInfo {
+  employmentStatus: "Employed" | "Self-employed" | "Unemployed";
+  sectorOfEmployment:
+    | "Tech"
+    | "Finance"
+    | "Education"
+    | "Healthcare"
+    | "Manufacturing";
+  durationOfEmployment: "1 year" | "2 years" | "5 years" | "10 years";
   officeEmail: string;
   monthlyIncome: string;
   loanRepayment: string;
+}
+
+export interface Socials {
   twitter: string;
   facebook: string;
   instagram: string;
-  userTier: number;
-  accountBalance: string;
-  bankDetails: string;
-  guarantors: Guarantor[];
 }
 
 export interface Guarantor {
   fullName: string;
   phoneNumber: string;
   emailAddress: string;
-  relationship: string;
+  relationship: "Friend" | "Colleague" | "Sibling" | "Parent";
 }
 
 export interface UserDetailsTabProps {
@@ -46,7 +63,7 @@ export interface UserDetailsTabProps {
   onTabChange: (tab: string) => void;
 }
 export interface UserDetailsProps {
-  user: User;
+  user: ApiUser;
   onEdit: () => void;
   onDelete: () => void;
 }
