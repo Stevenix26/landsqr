@@ -3,7 +3,7 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import Topbar from "@/components/layout/TopBar";
-import Sidebar from "@/components/layout/sideBar";
+import Sidebar from "@/components/layout/SideBar";
 import { useSidebar } from "@/hooks/useSidebar";
 import styles from "@/styles/components/dashboard.module.scss";
 
