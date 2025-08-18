@@ -4,10 +4,10 @@ import { useEffect, useState, useCallback } from "react";
 import type { ApiUser } from "@/types/users";
 
 const LOCAL_STORAGE_KEY = "users_data";
-const API_URL = "https://api.json-generator.com/templates/rSJrCF7PA-8B/data";
-const API_TOKEN = "yxtg3vw7nqxn20tgukznct396b57dwa93hfqscs8";
+const API_URL = process.env.NEXT_PUBLIC_API_URL as string;
+const API_TOKEN = process.env.NEXT_PUBLIC_API_TOKEN as string;
 
-export function useUsers() {
+export function useUser() {
   const [users, setUsers] = useState<ApiUser[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -18,7 +18,7 @@ export function useUsers() {
       setError(null);
 
       // 1️⃣ Use cache unless forced refresh
-      if (!forceRefresh) {
+      if (!forceRefresh && typeof window !== "undefined") {
         const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
         if (stored) {
           setUsers(JSON.parse(stored));
@@ -39,22 +39,27 @@ export function useUsers() {
       const data: ApiUser[] = await res.json();
 
       // 3️⃣ Save to localStorage
-      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data));
+      if (typeof window !== "undefined") {
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data));
+      }
+
       setUsers(data);
-    } catch (err: any) {
-      setError(err.message ?? "Unknown error");
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Unknown error");
+      }
       console.error("Error fetching users:", err);
     } finally {
       setLoading(false);
     }
   }, []);
 
-  // Fetch on mount
   useEffect(() => {
     fetchUsers();
   }, [fetchUsers]);
 
-  // Expose a way to refresh
   const refresh = () => fetchUsers(true);
 
   return { users, loading, error, refresh };

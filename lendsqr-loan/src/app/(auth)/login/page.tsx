@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import styles from "@/styles/login.module.scss";
+import styles from "@/styles/components/login.module.scss";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
@@ -49,7 +49,7 @@ export default function LoginPage() {
 
           <form onSubmit={handleLogin} className={styles.form}>
             <div className={styles.inputGroup}>
-              <label className={styles.label}>Email</label>
+              {/* <label className={styles.label}>Email</label> */}
               <input
                 type="email"
                 className={styles.input}
@@ -61,7 +61,7 @@ export default function LoginPage() {
             </div>
 
             <div className={styles.inputGroup}>
-              <label className={styles.label}>Password</label>
+              {/* <label className={styles.label}>Password</label> */}
               <div className={styles.passwordWrapper}>
                 <input
                   type={showPassword ? "text" : "password"}

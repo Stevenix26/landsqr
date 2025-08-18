@@ -1,5 +1,5 @@
 // Import global SCSS variables and mixins
-@import 'global.scss';
+@use "../variables.scss" as *;
 
 // Component-specific SCSS styles
 .users-table {
@@ -7,41 +7,42 @@
   background-color: get-color(global, bg-7);
   border-radius: 0.5rem;
   overflow: hidden;
-  
+
   &__header {
     @include flex-between;
     padding: 1.5rem;
     background-color: get-color(global, bg-6);
     border-bottom: 1px solid get-color(global, bg-5);
-    
+
     h2 {
       color: get-color(global, text-2);
       font-weight: 600;
       font-size: 1.25rem;
     }
   }
-  
+
   &__content {
     overflow-x: auto;
-    
+
     table {
       width: 100%;
       border-collapse: collapse;
-      
-      th, td {
+
+      th,
+      td {
         padding: 1rem;
         text-align: left;
         border-bottom: 1px solid get-color(global, bg-5);
-        
+
         &:first-child {
           padding-left: 1.5rem;
         }
-        
+
         &:last-child {
           padding-right: 1.5rem;
         }
       }
-      
+
       th {
         background-color: get-color(global, bg-6);
         color: get-color(global, text-4);
@@ -50,7 +51,7 @@
         text-transform: uppercase;
         letter-spacing: 0.05em;
       }
-      
+
       tr {
         &:hover {
           background-color: get-color(global, bg-4);
@@ -59,7 +60,7 @@
       }
     }
   }
-  
+
   // Responsive design
   @include respond-to(md) {
     &__header {
@@ -75,54 +76,54 @@
   grid-template-columns: 1fr;
   gap: 1.5rem;
   margin-bottom: 2rem;
-  
+
   @include respond-to(sm) {
     grid-template-columns: repeat(2, 1fr);
   }
-  
+
   @include respond-to(lg) {
     grid-template-columns: repeat(4, 1fr);
   }
-  
+
   &__card {
     @include card-shadow;
     background-color: get-color(global, bg-7);
     border-radius: 0.5rem;
     padding: 1.5rem;
     transition: transform 0.2s ease-in-out;
-    
+
     &:hover {
       transform: translateY(-2px);
     }
-    
+
     &__icon {
       width: 3rem;
       height: 3rem;
       border-radius: 50%;
       @include flex-center;
       margin-bottom: 1rem;
-      
+
       &--users {
         background-color: get-color(button, bg-1);
         color: get-color(button, text-1);
       }
-      
+
       &--active {
         background-color: get-color(global, bg-3);
         color: get-color(global, bg-7);
       }
-      
+
       &--loans {
         background-color: get-color(button, bg-3);
         color: get-color(button, text-2);
       }
-      
+
       &--savings {
         background-color: get-color(button, bg-4);
         color: get-color(button, text-3);
       }
     }
-    
+
     &__title {
       color: get-color(global, text-4);
       font-size: 0.875rem;
@@ -131,7 +132,7 @@
       letter-spacing: 0.05em;
       margin-bottom: 0.5rem;
     }
-    
+
     &__value {
       color: get-color(global, text-2);
       font-size: 1.5rem;
@@ -151,19 +152,19 @@
   width: 250px;
   overflow-y: auto;
   z-index: 1000;
-  
+
   &__brand {
     padding: 0 1.5rem 2rem;
     border-bottom: 1px solid get-color(global, bg-5);
-    
+
     img {
       max-height: 2rem;
     }
   }
-  
+
   &__nav {
     padding: 1.5rem 0;
-    
+
     &-item {
       display: block;
       padding: 0.75rem 1.5rem;
@@ -173,30 +174,30 @@
       @include flex-center;
       justify-content: flex-start;
       gap: 0.75rem;
-      
+
       &:hover {
         background-color: get-color(global, bg-4);
         color: get-color(global, text-2);
       }
-      
+
       &--active {
         background-color: get-color(global, bg-1);
         color: get-color(global, text-2);
         border-right: 3px solid get-color(global, text-3);
       }
-      
+
       &__icon {
         width: 1.25rem;
         height: 1.25rem;
         opacity: 0.7;
       }
-      
+
       &__text {
         font-weight: 500;
       }
     }
   }
-  
+
   // Mobile responsive
   @include respond-to(md) {
     position: relative;
@@ -212,38 +213,38 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  
+
   &__title {
     color: get-color(global, text-2);
     font-size: 1.5rem;
     font-weight: 600;
   }
-  
+
   &__actions {
     @include flex-center;
     gap: 1rem;
-    
+
     &__search {
       position: relative;
-      
+
       input {
         padding: 0.5rem 2.5rem 0.5rem 1rem;
         border: 1px solid get-color(global, bg-5);
         border-radius: 0.375rem;
         background-color: get-color(global, bg-6);
         color: get-color(global, text-1);
-        
+
         &:focus {
           outline: none;
           border-color: get-color(global, text-3);
           box-shadow: 0 0 0 3px rgba(57, 205, 204, 0.1);
         }
-        
+
         &::placeholder {
           color: get-color(global, text-5);
         }
       }
-      
+
       .search-icon {
         position: absolute;
         right: 0.75rem;
@@ -252,7 +253,7 @@
         color: get-color(global, text-5);
       }
     }
-    
+
     &__profile {
       @include flex-center;
       gap: 0.75rem;
@@ -260,11 +261,11 @@
       border-radius: 0.375rem;
       transition: background-color 0.2s ease-in-out;
       cursor: pointer;
-      
+
       &:hover {
         background-color: get-color(global, bg-4);
       }
-      
+
       &__avatar {
         width: 2rem;
         height: 2rem;
@@ -274,20 +275,20 @@
         color: get-color(global, bg-7);
         font-weight: 600;
       }
-      
+
       &__info {
         display: none;
-        
+
         @include respond-to(md) {
           display: block;
         }
-        
+
         &__name {
           color: get-color(global, text-2);
           font-weight: 500;
           font-size: 0.875rem;
         }
-        
+
         &__role {
           color: get-color(global, text-5);
           font-size: 0.75rem;

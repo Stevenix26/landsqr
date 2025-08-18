@@ -1,19 +1,21 @@
 /* layout.module.scss */
-@import "./_variables.scss";
+@use "../variables.scss" as *;
+
+
 
 .dashboardLayout {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  background-color: $background;
+  background-color: var(--background, $color-light-bg);
   font-family: $font-base;
 }
 
 .topbar {
   flex-shrink: 0;
   // height: 64px;
-  background-color: $background;
-  // border-bottom: 1px solid $secondary;
+  background-color: $color-light-bg;
+  // border-bottom: 1px solid $color-secondary;
   // z-index: 100;
   box-shadow: 0 2px 8px rgba(33, 63, 125, 0.04);
   // display: flex;
@@ -28,7 +30,7 @@
 }
 
 .mainContent {
-  background-color: $background;
+  background-color: $color-light-bg;
   padding: 2.5rem 2rem;
   border-radius: 16px;
   margin: 2rem;

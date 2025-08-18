@@ -2,7 +2,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import styles from "@/styles/UserActionMenu.module.scss";
+import styles from "@/styles/components/userActionMenu.module.scss";
 
 interface UserActionsMenuProps {
   userId: string;

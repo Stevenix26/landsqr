@@ -1,4 +1,4 @@
-@import "./_variables.scss";
+@use "../variables.scss" as *;
 
 .menuWrapper {
   position: relative;
@@ -68,7 +68,7 @@
 }
 
 .blacklist {
-//   color: #e4033b;
+  //   color: #e4033b;
   &:hover {
     background: #fdecea;
     color: #b8002e;
@@ -76,7 +76,7 @@
 }
 
 .activate {
-//   color: #39cd62;
+  //   color: #39cd62;
   &:hover {
     background: #e5f4ea;
     color: #249d44;

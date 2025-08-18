@@ -1,17 +1,23 @@
 "use client";
 
-import UserInfo from "@/app/dashboard/usersDetails/[id]/userInfo";
+import UserInfo from "@/components/dashboard/user/UserInfo";
 import type { ApiUser } from "@/types/users";
-import {useParams} from "next/navigation";
-import { useUsers } from "@/hooks/useUser";
+import { useParams } from "next/navigation";
+import { useUser } from "@/hooks/useUser";
+import Image from "next/image";
+import {Spinner} from "@/components/common/Spinner";
+
 export default function Page() {
   const params = useParams();
   const { id } = params;
-  const { users, loading } = useUsers();
+  const { users, loading } = useUser();
 
-  const userData : ApiUser | undefined = users.find((user) => user.id === id);
+  const userData: ApiUser | undefined = users.find((user) => user.id === id);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading)
+    return (
+      <Spinner/>
+    );
   if (!userData) return <p>No user found</p>;
 
   return (

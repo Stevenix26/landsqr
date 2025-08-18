@@ -3,7 +3,7 @@ import React, { useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { ApiUser } from "@/types/users";
-import Styles from "@/styles/UserTable.module.scss";
+import Styles from "@/styles/components/userTable.module.scss";
 import FilterPanel from "../common/FilterPanel";
 import UserActionsMenu from "../common/UserActionMenu";
 
@@ -13,7 +13,8 @@ interface UsersTableProps {
 
 const UsersTable: React.FC<UsersTableProps> = ({ users }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [itemsPerPage, setItemsPerPage] =
+   useState(10);
 
   // local state to allow updating user status immediately
   const [localUsers, setLocalUsers] = useState<ApiUser[]>(users);

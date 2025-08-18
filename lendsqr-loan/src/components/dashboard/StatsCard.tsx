@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import Styles from "@/styles/Stats.module.scss";
+import Styles from "@/styles/components/statsCard.module.scss";
 
 const StatsCard = () => {
   const StatsCardElement = [

@@ -2,10 +2,10 @@
 "use client";
 import React from "react";
 import { useRouter } from "next/navigation";
-import Topbar from "@/components/layout/topbar";
-import Sidebar from "@/components/layout/sidebar";
+import Topbar from "@/components/layout/TopBar";
+import Sidebar from "@/components/layout/SideBar";
 import { useSidebar } from "@/hooks/useSidebar";
-import styles from "@/styles/dashboard.module.scss";
+import styles from "@/styles/components/dashboard.module.scss";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const { collapsed, toggleSidebar } = useSidebar();

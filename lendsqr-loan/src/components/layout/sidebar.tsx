@@ -1,7 +1,7 @@
 
 "use client";
 import React from "react";
-import Styles from "@/styles/sidebar.module.scss";
+import Styles from "@/styles/components/sidebar.module.scss";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";

@@ -1,7 +1,7 @@
 "use client";
-import React from "react";
-import Styles from "@/styles/UsersInfo.module.scss";
+import React from "react";;
 import { useRouter } from "next/navigation";
+import Styles from "@/styles/components/userInfo.module.scss";
 import Image from "next/image";
 import type { ApiUser } from "@/types/users";
 
@@ -146,7 +146,7 @@ const UserInfo: React.FC<UserDetailsProps> = ({
           <div>
             <p className={Styles.label}>Level of Education</p>
             <p className={Styles.value}>
-              {user.employmentInfo.levelOfEducation}
+              {user.employmentInfo.levelOfEducation?.toString() || ''}
             </p>
           </div>
           <div>

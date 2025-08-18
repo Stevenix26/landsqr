@@ -51,9 +51,9 @@ export interface Socials {
 }
 
 export interface Guarantor {
-  fullName: string;
+  name: string;
   phoneNumber: string;
-  emailAddress: string;
+  email: string;
   relationship: "Friend" | "Colleague" | "Sibling" | "Parent";
 }
 

@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "@/styles/FilterPanel.module.scss";
+import styles from "@/styles/components/filterPanel.module.scss";
 import type { ApiUser } from "@/types/users";
 import Image from "next/image";
 interface FilterPanelProps {

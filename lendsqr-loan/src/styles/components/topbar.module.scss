@@ -1,4 +1,4 @@
-@import "_variables.scss";
+@use "../variables.scss" as *;
 
 .topbar {
   display: flex;
@@ -39,7 +39,7 @@
 .menuButton {
   border: none;
   background: none;
-    color: #1a2e52;
+  color: #1a2e52;
   font-size: 1.5rem;
   font-weight: 500;
   // line-height: 1;
@@ -50,7 +50,7 @@
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-    &:hover {
+  &:hover {
     background: none;
     // color: #f3f6fa;
   }
@@ -87,13 +87,13 @@
     text-transform: lowercase;
     font: var(--font-work-sans);
     background-color: transparent;
-    color: $secondary;
+    color: $color-secondary;
     // border-radius: 0.5rem;
     outline: none;
     border: none;
     font-size: 1rem;
     &::placeholder {
-      color: $secondary;
+      color: $color-secondary;
     }
   }
   button {
@@ -109,7 +109,7 @@
   }
 
   &::placeholder {
-    color: $secondary;
+    color: $color-secondary;
   }
 
   /* optionally shrink/hide on very small screens */
@@ -155,8 +155,6 @@
     display: none;
   }
 }
-
-
 
 // .topbar {
 //   display: flex;
@@ -214,18 +212,18 @@
 //   //   font: var(--font-work-sans);
 //   //   border: none;
 //   //   background-color: transparent;
-//   //   color: $secondary;
+//   //   color: $color-secondary;
 //   //   border-radius: 0.5rem;
 //   //   outline: none;
 //   //   border: none;
 //   //   font-size: 1rem;
 //   //   outline: none;
 //   //   &::placeholder {
-//   //     color: $secondary;
+//   //     color: $color-secondary;
 //   //   }
 
 //   &::placeholder {
-//     color: $secondary;
+//     color: $color-secondary;
 //   }
 
 //   input {
@@ -287,4 +285,3 @@
 //     }
 //   }
 // }
-

@@ -1,23 +1,23 @@
 // Color and font variables
-@import "./variables";
+@use "../variables.scss" as *;
 
 .userDetails {
   font-family: var(--font-work-sans);
-  color: $primary;
+  color: $color-primary;
 
   // Back link
   .backLink {
     margin-bottom: 15px;
 
     span {
-      color: $secondary;
+      color: $color-secondary;
       font-size: 16px;
       font-weight: 400;
       cursor: pointer;
       transition: color 0.2s ease;
 
       &:hover {
-        color: $login;
+        color: $color-accent;
       }
     }
   }
@@ -32,7 +32,7 @@
     span {
       font-size: 20px;
       font-weight: 600;
-      color: $primary;
+      color: $color-primary;
     }
 
     .buttonSpace {
@@ -51,24 +51,24 @@
     }
 
     .blacklist {
-      border: 1px solid $error;
-      color: $error;
+      border: 1px solid $color-error;
+      color: $color-error;
       background: transparent;
 
       &:hover {
-        background: $error;
-        color: $background;
+        background: $color-error;
+        color: $color-light-bg;
       }
     }
 
     .activate {
-      border: 1px solid $login;
-      color: $login;
+      border: 1px solid $color-accent;
+      color: $color-accent;
       background: transparent;
 
       &:hover {
-        background: $login;
-        color: $background;
+        background: $color-accent;
+        color: $color-light-bg;
       }
     }
   }
@@ -77,7 +77,7 @@
   .userContainer {
     width: 100%;
     max-width: 1440px;
-    background: $background;
+    background: $color-light-bg;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
     padding: 0px 10px;
@@ -113,7 +113,7 @@
         font-size: 20px;
         font-weight: 600;
         margin-bottom: 4px;
-        color: $primary;
+        color: $color-primary;
       }
       p {
         font-size: 14px;
@@ -134,7 +134,7 @@
         font-weight: 500;
         font-size: 14px;
         margin-bottom: 5px;
-        color: $primary;
+        color: $color-primary;
       }
 
       .stars {
@@ -145,7 +145,7 @@
 
     .account {
       text-align: left;
-      color: $primary;
+      color: $color-primary;
 
       h3 {
         font-weight: 600;
@@ -177,13 +177,13 @@
       transition: 0.2s;
 
       &.active {
-        color: $login;
+        color: $color-accent;
         font-weight: 500;
-        border-bottom: 2px solid $login;
+        border-bottom: 2px solid $color-accent;
       }
 
       &:hover {
-        color: $login;
+        color: $color-accent;
       }
     }
   }

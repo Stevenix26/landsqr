@@ -1,9 +1,10 @@
-import { renderHook, act } from "@testing-library/react-hooks";
-import { useUsers } from "./useUser";
+import { renderHook, act, waitFor } from "@testing-library/react";
+import { useUser } from "@/hooks/useUser";
 
 describe("useUsers hook", () => {
   beforeEach(() => {
     localStorage.clear();
+    jest.resetAllMocks();
   });
 
   it("should fetch users and set them in state (positive)", async () => {
@@ -50,21 +51,29 @@ describe("useUsers hook", () => {
           accountNumber: 123456,
         },
       ],
-    });
+    } as unknown as Response);
 
-    const { result, waitForNextUpdate } = renderHook(() => useUsers());
-    await waitForNextUpdate();
-    expect(result.current.users.length).toBe(1);
-    expect(result.current.loading).toBe(false);
-    expect(result.current.error).toBe(null);
+    const { result } = renderHook(() => useUser());
+
+    await waitFor(() => {
+      expect(result.current.users.length).toBe(1);
+      expect(result.current.loading).toBe(false);
+      expect(result.current.error).toBe(null);
+    });
   });
 
   it("should handle fetch error (negative)", async () => {
-    global.fetch = jest.fn().mockResolvedValue({ ok: false, status: 500 });
-    const { result, waitForNextUpdate } = renderHook(() => useUsers());
-    await waitForNextUpdate();
-    expect(result.current.users.length).toBe(0);
-    expect(result.current.loading).toBe(false);
-    expect(result.current.error).toContain("Failed to fetch users");
+    global.fetch = jest.fn().mockResolvedValue({
+      ok: false,
+      status: 500,
+    } as unknown as Response);
+
+    const { result } = renderHook(() => useUser());
+
+    await waitFor(() => {
+      expect(result.current.users.length).toBe(0);
+      expect(result.current.loading).toBe(false);
+      expect(result.current.error).toContain("Failed to fetch users");
+    });
   });
 });

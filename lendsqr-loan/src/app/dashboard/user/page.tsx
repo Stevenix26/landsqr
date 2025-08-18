@@ -3,17 +3,23 @@
 import React from "react";
 import StatsCard from "@/components/dashboard/StatsCard";
 import UsersTable from "@/components/dashboard/UsersTable";
-import { useUsers } from "@/hooks/useUser";
+import { useUser } from "@/hooks/useUser";
+import {Spinner} from "@/components/common/Spinner";
 
 const User = () => {
-
-  const { users, loading } = useUsers();
+  const { users, loading } = useUser();
 
   return (
     <main>
-      <h1>Users</h1>
-      <StatsCard />
-      {loading ? <p>Loading users...</p> : <UsersTable users={users} />}
+      {loading ? (
+        <Spinner/>
+      ) : (
+        <>
+          <h1>Users</h1>
+          <StatsCard />
+          <UsersTable users={users} />
+        </>
+      )}
     </main>
   );
 };

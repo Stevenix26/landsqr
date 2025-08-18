@@ -1,8 +1,8 @@
-@import "@/styles/_variables.scss";
+@use "../variables.scss" as *;
 
 .filterBox {
-  background: $background;
-  border: 1px solid $secondary;
+  background: $color-light-bg;
+  border: 1px solid $color-secondary;
   border-radius: 8px;
   padding: 20px;
   display: grid;
@@ -18,19 +18,19 @@
     font-size: 12px;
     font-weight: 600;
     margin-bottom: 4px;
-    color: $secondary;
+    color: $color-secondary;
   }
 
   input,
   select {
     padding: 10px;
-    border: 1px solid $secondary;
+    border: 1px solid $color-secondary;
     border-radius: 6px;
     font-size: 14px;
     outline: none;
 
     &:focus {
-      border-color: $primary;
+      border-color: $color-primary;
     }
   }
 }
@@ -44,23 +44,23 @@
 
   .reset {
     background: transparent;
-    border: 1px solid $secondary;
-    color: $secondary;
+    border: 1px solid $color-secondary;
+    color: $color-secondary;
     padding: 8px 16px;
     border-radius: 6px;
     cursor: pointer;
     transition: all 0.2s ease;
 
     &:hover {
-      background: $secondary;
-      color: $background;
+      background: $color-secondary;
+      color: $color-light-bg;
     }
   }
 
   .filter {
-    background: $primary;
+    background: $color-primary;
     border: none;
-    color: $background;
+    color: $color-light-bg;
     padding: 8px 16px;
     border-radius: 6px;
     cursor: pointer;
