@@ -1,4 +1,3 @@
-
 "use client";
 import { useState } from "react";
 import Image from "next/image";
@@ -10,7 +9,11 @@ type TopbarProps = {
   sidebarCollapsed?: boolean; // for aria state
 };
 
-export default function Topbar({ onToggleSidebar, onSearch, sidebarCollapsed }: TopbarProps) {
+export default function Topbar({
+  onToggleSidebar,
+  onSearch,
+  sidebarCollapsed,
+}: TopbarProps) {
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -96,4 +99,3 @@ export default function Topbar({ onToggleSidebar, onSearch, sidebarCollapsed }: 
     </header>
   );
 }
-
