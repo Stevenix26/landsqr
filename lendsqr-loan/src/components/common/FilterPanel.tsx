@@ -89,12 +89,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
             aria-label="Date"
             placeholder="Date"
           />
-          <Image 
-            src="/images/dates.svg"
-            alt= "date image"
-            width={20}
-            height={20}
-          />
+         
         </label>
 
         <label>

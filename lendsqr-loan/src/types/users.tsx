@@ -9,12 +9,10 @@ export interface ApiUser {
   dateJoined: string;
   status: "Active" | "Inactive" | "Pending" | "Blacklisted";
   profileImage: string;
-
   userInfo: ApiUserInfo;
   employmentInfo: EmploymentInfo;
   socials: Socials;
   guarantors: Guarantor[];
-
   userTier: number;
   accountBalance: string;
   bankName: string;
@@ -32,6 +30,7 @@ export interface ApiUserInfo {
 }
 
 export interface EmploymentInfo {
+  levelOfEducation: ApiUserInfo
   employmentStatus: "Employed" | "Self-employed" | "Unemployed";
   sectorOfEmployment:
     | "Tech"

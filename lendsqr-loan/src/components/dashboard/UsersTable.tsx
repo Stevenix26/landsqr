@@ -15,6 +15,9 @@ const UsersTable: React.FC<UsersTableProps> = ({ users }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
 
+  // local state to allow updating user status immediately
+  const [localUsers, setLocalUsers] = useState<ApiUser[]>(users);
+
   // keep your exact showFilter + filters state
   const [showFilter, setShowFilter] = useState<string | null>(null);
   const [filters, setFilters] = useState({
@@ -25,6 +28,7 @@ const UsersTable: React.FC<UsersTableProps> = ({ users }) => {
     phoneNumber: "",
     status: "",
   });
+
   React.useEffect(() => {
     if (showFilter === "mobile") {
       document.body.style.overflow = "hidden";
@@ -32,14 +36,25 @@ const UsersTable: React.FC<UsersTableProps> = ({ users }) => {
       document.body.style.overflow = "";
     }
   }, [showFilter]);
+
   const handleBlacklist = (id: string) => {
-    console.log("Blacklist user:", id);
-    // Add your API call here
+    setLocalUsers((prev) =>
+      prev.map((u) =>
+        u.id === id ? { ...u, status: "Blacklisted" as ApiUser["status"] } : u
+      )
+    );
+    console.log("Blacklisted user:", id);
+    // TODO: Add your API call here
   };
 
   const handleActivate = (id: string) => {
-    console.log("Activate user:", id);
-    // Add your API call here
+    setLocalUsers((prev) =>
+      prev.map((u) =>
+        u.id === id ? { ...u, status: "Active" as ApiUser["status"] } : u
+      )
+    );
+    console.log("Activated user:", id);
+    // TODO: Add your API call here
   };
 
   const handleChange = (
@@ -69,7 +84,7 @@ const UsersTable: React.FC<UsersTableProps> = ({ users }) => {
   };
 
   const filteredUsers = useMemo(() => {
-    return users.filter((user) => {
+    return localUsers.filter((user) => {
       return (
         (!filters.organization ||
           user.organization
@@ -88,7 +103,7 @@ const UsersTable: React.FC<UsersTableProps> = ({ users }) => {
           user.status.toLowerCase() === filters.status.toLowerCase())
       );
     });
-  }, [users, filters]);
+  }, [localUsers, filters]);
 
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -142,6 +157,7 @@ const UsersTable: React.FC<UsersTableProps> = ({ users }) => {
               "Phone Number",
               "Date Joined",
               "Status",
+              "Actions", // ✅ Added so actions align
             ].map((header) => (
               <th key={header}>
                 <div className={Styles.th_content}>

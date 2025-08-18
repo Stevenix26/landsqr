@@ -206,7 +206,7 @@ export default function Topbar({ onToggleSidebar, onSearch, sidebarCollapsed }: 
       {/* Logo */}
       <div className={styles.logo}>
         <Image
-          src="/images/Group.svg"
+          src="/images/lendsqr.svg"
           alt="Lendsqr Logo"
           width={173.76}
           height={36}
