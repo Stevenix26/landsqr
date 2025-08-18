@@ -43,8 +43,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed, onToggleSidebar }) => {
                       <div className={Styles.menuClickable}>
                         <Image src={item.icon} alt={item.label} width={16} height={16} className={Styles.icon} />
                         {!collapsed && <span className={Styles.label}>{item.label}</span>}
-                        {/* dropdown chevron only when expanded */}
-                        {/* ... */}
+                       
                       </div>
                     )}
                   </li>
