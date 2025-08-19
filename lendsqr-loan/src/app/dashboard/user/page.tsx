@@ -7,7 +7,20 @@ import { useUser } from "@/hooks/useUser";
 import { Spinner } from "@/components/common/Spinner";
 
 const User = () => {
-  const { users, loading, updateUserStatus } = useUser();
+  const { users, loading, error, updateUserStatus } = useUser();
+
+  console.log("User page - users:", users);
+  console.log("User page - loading:", loading);
+  console.log("User page - error:", error);
+
+  if (error) {
+    return (
+      <main>
+        <h1>Error Loading Users</h1>
+        <p>{error}</p>
+      </main>
+    );
+  }
 
   return (
     <main>

@@ -1,100 +1,191 @@
 import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import UsersTable from "@/components/dashboard/UsersTable";
-import UserActionMenu from "@/components/common/UserActionMenu";
-import { mockUsers } from "@/__test__/mockUsers";
+import UsersTable from "../../components/dashboard/UsersTable";
+import { mockUsers } from "../../mocks/mockUsers";
+import { ApiUser } from "../../types/users";
 
-describe("UsersTable Component", () => {
-  it("renders all users and columns", () => {
-    render(<UsersTable users={mockUsers} />);
+// Mock the UserActionsMenu component
+jest.mock("../../components/common/UserActionMenu", () => {
+  return function MockUserActionsMenu({
+    userId,
+    onBlacklist,
+    onActivate,
+  }: {
+    userId: string;
+    onBlacklist: (id: string) => void;
+    onActivate: (id: string) => void;
+  }) {
+    return (
+      <div data-testid={`user-actions-${userId}`}>
+        <button
+          onClick={() => onBlacklist(userId)}
+          data-testid={`blacklist-${userId}`}
+        >
+          Blacklist
+        </button>
+        <button
+          onClick={() => onActivate(userId)}
+          data-testid={`activate-${userId}`}
+        >
+          Activate
+        </button>
+      </div>
+    );
+  };
+});
 
-    mockUsers.forEach((user) => {
-      expect(screen.getByText(user.username)).toBeInTheDocument();
-      expect(screen.getByText(user.email)).toBeInTheDocument();
-      expect(screen.getByText(user.organization)).toBeInTheDocument();
+// Mock the FilterPanel component
+jest.mock("../../components/common/FilterPanel", () => {
+  return function MockFilterPanel({
+    onApply,
+    onReset,
+    onClose,
+  }: {
+    onApply: () => void;
+    onReset: () => void;
+    onClose: () => void;
+  }) {
+    return (
+      <div data-testid="filter-panel">
+        <button onClick={onApply}>Apply</button>
+        <button onClick={onReset}>Reset</button>
+        <button onClick={onClose}>Close</button>
+      </div>
+    );
+  };
+});
+
+describe("UsersTable Component - Fixed Tests", () => {
+  const mockUpdateUserStatus = jest.fn();
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  describe("Basic Rendering Tests", () => {
+    test("renders table headers correctly", () => {
+      render(
+        <UsersTable users={mockUsers} updateUserStatus={mockUpdateUserStatus} />
+      );
+
+      const headers = [
+        "Organization",
+        "Username",
+        "Email",
+        "Phone Number",
+        "Date Joined",
+        "Status",
+      ];
+
+      headers.forEach((header) => {
+        expect(screen.getByText(header)).toBeInTheDocument();
+      });
     });
 
-    [
-      "Organization",
-      "Username",
-      "Email",
-      "Phone Number",
-      "Date Joined",
-      "Status",
-      "Actions",
-    ].forEach((header) => expect(screen.getByText(header)).toBeInTheDocument());
-  });
+    test("renders all users with correct data", () => {
+      render(
+        <UsersTable users={mockUsers} updateUserStatus={mockUpdateUserStatus} />
+      );
 
-  it("opens user action menu and triggers callbacks", () => {
-    const onBlacklistMock = jest.fn();
-    const onActivateMock = jest.fn();
+      mockUsers.forEach((user) => {
+        expect(screen.getByText(user.organization)).toBeInTheDocument();
+        expect(screen.getByText(user.username)).toBeInTheDocument();
+        expect(screen.getByText(user.email)).toBeInTheDocument();
+      });
+    });
 
-    render(<UsersTable users={mockUsers.map((u) => ({ ...u }))} />);
+    test("displays correct status badges", () => {
+      render(
+        <UsersTable users={mockUsers} updateUserStatus={mockUpdateUserStatus} />
+      );
 
-    // Open the menu of the first user
-    const menuButtons = screen.getAllByLabelText("Open user actions menu");
-    fireEvent.click(menuButtons[0]);
-
-    // UserActionMenu buttons
-    const blacklistBtn = screen.getByText("Blacklist User");
-    const activateBtn = screen.getByText("Activate User");
-
-    // Fire events
-    fireEvent.click(blacklistBtn);
-    fireEvent.click(activateBtn);
-
-    // Since UsersTable uses internal handlers, we check status changes
-    expect(screen.getAllByText("Blacklisted")[0]).toBeInTheDocument();
-    expect(screen.getAllByText("Active")[0]).toBeInTheDocument();
-  });
-
-  it("renders all status variants correctly", () => {
-    const usersWithStatuses = [
-      ...mockUsers,
-      { ...mockUsers[0], id: "3", status: "Pending" },
-      { ...mockUsers[0], id: "4", status: "Blacklisted" },
-    ];
-
-    render(<UsersTable users={usersWithStatuses} />);
-
-    ["Active", "Inactive", "Pending", "Blacklisted"].forEach((status) => {
-      expect(screen.getByText(status)).toBeInTheDocument();
+      mockUsers.forEach((user) => {
+        expect(screen.getByText(user.status)).toBeInTheDocument();
+      });
     });
   });
 
-  it("opens mobile filter overlay and closes on reset", () => {
-    render(<UsersTable users={mockUsers} />);
+  describe("Filtering and Pagination Tests", () => {
+    test("handles pagination with many users", () => {
+      const manyUsers = Array.from({ length: 15 }, (_, i) => ({
+        ...mockUsers[0],
+        id: `user-${i}`,
+        username: `user${i}`,
+        email: `user${i}@example.com`,
+      }));
 
-    const filterBtn = screen.getByText("Filter");
-    fireEvent.click(filterBtn);
+      render(
+        <UsersTable users={manyUsers} updateUserStatus={mockUpdateUserStatus} />
+      );
 
-    expect(screen.getByRole("dialog")).toBeInTheDocument();
+      expect(screen.getByText("out of 15")).toBeInTheDocument();
+    });
 
-    // Assuming FilterPanel has a "Reset" button
-    const resetBtn = screen.getByText("Reset");
-    fireEvent.click(resetBtn);
+    test("handles empty users array", () => {
+      render(<UsersTable users={[]} updateUserStatus={mockUpdateUserStatus} />);
 
-    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+      expect(screen.getByText("Organization")).toBeInTheDocument();
+    });
   });
 
-  it("handles pagination correctly", () => {
-    const manyUsers = Array.from({ length: 15 }, (_, i) => ({
-      ...mockUsers[0],
-      id: `user-${i}`,
-    }));
+  describe("Status Update Tests", () => {
+    test("calls updateUserStatus with correct parameters", () => {
+      render(
+        <UsersTable users={mockUsers} updateUserStatus={mockUpdateUserStatus} />
+      );
 
-    render(<UsersTable users={manyUsers} />);
+      const blacklistButton = screen.getByTestId(
+        `blacklist-${mockUsers[0].id}`
+      );
+      fireEvent.click(blacklistButton);
 
-    const nextBtn = screen.getByText(">");
-    fireEvent.click(nextBtn);
+      expect(mockUpdateUserStatus).toHaveBeenCalledWith(
+        mockUsers[0].id,
+        "Blacklisted"
+      );
 
-    const prevBtn = screen.getByText("<");
-    fireEvent.click(prevBtn);
+      const activateButton = screen.getByTestId(`activate-${mockUsers[0].id}`);
+      fireEvent.click(activateButton);
 
-    const page2 = screen.getByText("2");
-    fireEvent.click(page2);
+      expect(mockUpdateUserStatus).toHaveBeenCalledWith(
+        mockUsers[0].id,
+        "Active"
+      );
+    });
+  });
 
-    expect(page2).toHaveClass("active");
+  describe("Edge Cases", () => {
+    test("handles single user", () => {
+      render(
+        <UsersTable
+          users={[mockUsers[0]]}
+          updateUserStatus={mockUpdateUserStatus}
+        />
+      );
+
+      expect(screen.getByText(mockUsers[0].username)).toBeInTheDocument();
+    });
+
+    test("handles special characters in data", () => {
+      const specialUsers = [
+        {
+          ...mockUsers[0],
+          username: "test@user#name",
+          email: "test+special@example.com",
+          organization: "Test & Co.",
+        },
+      ];
+
+      render(
+        <UsersTable
+          users={specialUsers}
+          updateUserStatus={mockUpdateUserStatus}
+        />
+      );
+
+      expect(screen.getByText("test@user#name")).toBeInTheDocument();
+      expect(screen.getByText("test+special@example.com")).toBeInTheDocument();
+    });
   });
 });

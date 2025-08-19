@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export const Spinner = () => {
   return (
-    <div>
+    <>
       <Image
         alt="Loading.."
         src="./images/loader.svg"
@@ -16,6 +16,6 @@ export const Spinner = () => {
           animation: "spin 1s linear infinite",
         }}
       />
-    </div>
+    </>
   );
 };

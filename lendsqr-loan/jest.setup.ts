@@ -14,11 +14,13 @@ jest.mock("next/navigation", () => ({
 // ✅ Mock Next.js Image
 jest.mock("next/image", () => ({
   __esModule: true,
-  default: (props: React.ImgHTMLAttributes<HTMLImageElement>) =>
-    React.createElement("img", {
-      ...props,
-      alt: props.alt || "mocked-image",
-    }),
+  default: (props: React.ImgHTMLAttributes<HTMLImageElement>) => {
+    const { priority: _priority, ...rest } = props as any;
+    return React.createElement("img", {
+      ...rest,
+      alt: rest.alt || "mocked-image",
+    } as any);
+  },
 }));
 
 // ✅ Mock Next.js Link

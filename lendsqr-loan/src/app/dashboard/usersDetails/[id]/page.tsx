@@ -4,7 +4,7 @@ import UserInfo from "@/components/dashboard/user/UserInfo";
 import type { ApiUser } from "@/types/users";
 import { useParams } from "next/navigation";
 import { useUser } from "@/hooks/useUser";
-import Image from "next/image";
+// import Image from "next/image";
 import {Spinner} from "@/components/common/Spinner";
 
 export default function Page() {

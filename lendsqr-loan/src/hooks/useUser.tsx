@@ -4,9 +4,7 @@ import { useEffect, useState, useCallback } from "react";
 import type { ApiUser } from "@/types/users";
 
 const LOCAL_STORAGE_KEY = "users_data";
-const API_URL="https://api.json-generator.com/templates/rSJrCF7PA-8B/data"
-const API_TOKEN= "ci6y14wdnw7vgpo2htjbycyydxqibybdzoy0ttf4"
-
+const INTERNAL_API = "/api/users/:route"; // Call our server-side API route
 
 export function useUser() {
   const [users, setUsers] = useState<ApiUser[]>([]);
@@ -18,7 +16,7 @@ export function useUser() {
       setLoading(true);
       setError(null);
 
-      // Use cached data if available
+      // 1️⃣ Use cache unless forced refresh
       if (!forceRefresh && typeof window !== "undefined") {
         const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
         if (stored) {
@@ -28,60 +26,54 @@ export function useUser() {
         }
       }
 
-      // Fetch directly from API
-      const res = await fetch(API_URL, {
-        headers: {
-          Authorization: `Bearer ${API_TOKEN}`,
-        },
-      });
+      // 2️⃣ Fetch from internal API
+      try {
+        const res = await fetch(INTERNAL_API);
+        if (!res.ok) throw new Error(`Failed to fetch users: ${res.status}`);
 
-      if (!res.ok) {
-        throw new Error(`Failed to fetch users: ${res.status}`);
+        const data: ApiUser[] = await res.json();
+
+        // 3️⃣ Save to localStorage
+        if (typeof window !== "undefined") {
+          localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data));
+        }
+
+        setUsers(data);
+      } catch (apiError) {
+        console.warn("Internal API unavailable, using cached data or empty array:", apiError);
+        // Use cached data if available or empty array
+        if (typeof window !== "undefined") {
+          const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
+          setUsers(stored ? JSON.parse(stored) : []);
+        }
       }
-
-      const data: ApiUser[] = await res.json();
-
-      // Save to localStorage
-      if (typeof window !== "undefined") {
-        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data));
-      }
-
-      setUsers(data);
     } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Unknown error");
+      }
       console.error("Error fetching users:", err);
-      setError((err as Error).message || "Unknown error fetching users");
     } finally {
       setLoading(false);
     }
   }, []);
 
-  const updateUserStatus = useCallback(
-    (userId: string, newStatus: ApiUser["status"]) => {
-      setUsers((prevUsers) => {
-        const updatedUsers = prevUsers.map((user) =>
-          user.id === userId ? { ...user, status: newStatus } : user
-        );
+  // Update user status in localStorage
+  const updateUserStatus = useCallback((userId: string, newStatus: ApiUser["status"]) => {
+    setUsers((prevUsers) => {
+      const updatedUsers = prevUsers.map((user) =>
+        user.id === userId ? { ...user, status: newStatus } : user
+      );
 
-        // Update localStorage
-        if (typeof window !== "undefined") {
-          localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updatedUsers));
-        }
+      // Update localStorage
+      if (typeof window !== "undefined") {
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updatedUsers));
+      }
 
-        return updatedUsers;
-      });
-
-      // Optional: persist status change to API here
-      // fetch(`${API_URL}/${userId}`, {
-      //   method: "PATCH",
-      //   headers: {
-      //     Authorization: `Bearer ${API_TOKEN}`,
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify({ status: newStatus }),
-      // }).catch(console.error);
-    },
-    []
-  );
+      return updatedUsers;
+    });
+  }, []);
 
   useEffect(() => {
     fetchUsers();

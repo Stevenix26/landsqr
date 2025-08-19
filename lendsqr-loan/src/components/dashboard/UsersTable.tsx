@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { ApiUser } from "@/types/users";
@@ -15,10 +15,6 @@ interface UsersTableProps {
 const UsersTable: React.FC<UsersTableProps> = ({ users, updateUserStatus }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
-
-  const [localUsers, setLocalUsers] = useState<ApiUser[]>([]);
-  useEffect(() => setLocalUsers(users), [users]);
-
   const [showFilter, setShowFilter] = useState<string | null>(null);
   const [filters, setFilters] = useState({
     organization: "",
@@ -29,12 +25,21 @@ const UsersTable: React.FC<UsersTableProps> = ({ users, updateUserStatus }) => {
     status: "",
   });
 
-  useEffect(() => {
-    document.body.style.overflow = showFilter === "mobile" ? "hidden" : "";
+  React.useEffect(() => {
+    if (showFilter === "mobile") {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
   }, [showFilter]);
 
-  const handleBlacklist = (id: string) => updateUserStatus(id, "Blacklisted");
-  const handleActivate = (id: string) => updateUserStatus(id, "Active");
+  const handleBlacklist = (id: string) => {
+    updateUserStatus(id, "Blacklisted");
+  };
+
+  const handleActivate = (id: string) => {
+    updateUserStatus(id, "Active");
+  };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -48,6 +53,7 @@ const UsersTable: React.FC<UsersTableProps> = ({ users, updateUserStatus }) => {
     setCurrentPage(1);
     setShowFilter(null);
   };
+
   const handleReset = () => {
     setFilters({
       organization: "",
@@ -62,7 +68,7 @@ const UsersTable: React.FC<UsersTableProps> = ({ users, updateUserStatus }) => {
   };
 
   const filteredUsers = useMemo(() => {
-    return localUsers.filter((user) => {
+    return users.filter((user) => {
       return (
         (!filters.organization ||
           user.organization
@@ -81,7 +87,7 @@ const UsersTable: React.FC<UsersTableProps> = ({ users, updateUserStatus }) => {
           user.status.toLowerCase() === filters.status.toLowerCase())
       );
     });
-  }, [localUsers, filters]);
+  }, [users, filters]);
 
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -107,142 +113,144 @@ const UsersTable: React.FC<UsersTableProps> = ({ users, updateUserStatus }) => {
 
   return (
     <>
-      <div className={Styles.container}>
-        {/* === Mobile filter trigger === */}
-        <div className={Styles.mobileFilterTrigger}>
-          <button
-            className={Styles.mobileFilterBtn}
-            onClick={() =>
-              setShowFilter(showFilter === "mobile" ? null : "mobile")
-            }
-          >
-            <Image
-              src="/images/img_filter_results_button.svg"
-              alt="Filter"
-              width={18}
-              height={18}
-            />{" "}
-            Filter
-          </button>
-        </div>
-
-        <table className={Styles.tableContainer}>
-          <thead>
-            <tr>
-              {[
-                "Organization",
-                "Username",
-                "Email",
-                "Phone Number",
-                "Date Joined",
-                "Status",
-              ].map((header) => (
-                <th key={header}>
-                  <div className={Styles.th_content}>
-                    {header}
-                    {header !== "Actions" && (
-                      <div className={Styles.filterWrapper}>
-                        <Image
-                          src="/images/img_filter_results_button.svg"
-                          alt="Filter"
-                          width={16}
-                          height={16}
-                          className={Styles.filter_icon}
-                          onClick={() =>
-                            setShowFilter(showFilter === header ? null : header)
-                          }
-                        />
-                        {showFilter === header && (
-                          <div className={Styles.filterDropdown}>
-                            <FilterPanel
-                              filters={filters}
-                              onChange={handleChange}
-                              onApply={handleApply}
-                              onReset={handleReset}
-                              onClose={() => setShowFilter(null)}
-                              users={users}
-                            />
-                          </div>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                </th>
-              ))}
-            </tr>
-          </thead>
-
-          <tbody>
-            {currentUsers.map((user) => (
-              <tr key={user.id}>
-                <td data-label="Organization">{user.organization}</td>
-                <td data-label="Username">
-                  <Link
-                    href={`/dashboard/usersDetails/${user.id}`}
-                    className={Styles.username_link}
-                  >
-                    {user.username}
-                  </Link>
-                </td>
-                <td className={Styles.break_all} data-label="Email">
-                  {user.email}
-                </td>
-                <td data-label="Phone number">
-                  {user.phoneNumber.replace("+234", "0")}
-                </td>
-                <td data-label="Date joined">
-                  {`${new Date(user.dateJoined).toLocaleDateString("en-US", {
-                    month: "long",
-                    day: "numeric",
-                    year: "numeric",
-                  })} ${new Date(user.dateJoined).toLocaleTimeString("en-US", {
-                    hour: "numeric",
-                    minute: "2-digit",
-                    hour12: true,
-                  })}`}
-                </td>
-                <td data-label="Status">
-                  <button
-                    className={`${Styles.status_btn} ${getStatusVariant(
-                      user.status
-                    )}`}
-                  >
-                    {user.status}
-                  </button>
-                </td>
-                <td className={Styles.actions} data-label="Actions">
-                  <UserActionsMenu
-                    userId={user.id}
-                    onBlacklist={handleBlacklist}
-                    onActivate={handleActivate}
-                  />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-
-        {/* === Mobile filter overlay === */}
-        {showFilter === "mobile" && (
-          <div
-            className={Styles.mobileFilterOverlay}
-            role="dialog"
-            aria-modal="true"
-          >
-            <div className={Styles.mobileFilterSheet}>
-              <FilterPanel
-                filters={filters}
-                onChange={handleChange}
-                onApply={handleApply}
-                onReset={handleReset}
-                onClose={() => setShowFilter(null)}
-                users={users}
-              />
-            </div>
-          </div>
-        )}
+    <div className={Styles.container}>
+      <div className={Styles.mobileFilterTrigger}>
+        <button
+          className={Styles.mobileFilterBtn}
+          onClick={() =>
+            setShowFilter(showFilter === "mobile" ? null : "mobile")
+          }
+        >
+          <Image
+            src="/images/img_filter_results_button.svg"
+            alt="Filter"
+            width={18}
+            height={18}
+          />
+          Filter
+        </button>
       </div>
-      {/* === Pagination === */}
+
+      <table className={Styles.tableContainer}>
+        <thead>
+          <tr>
+            {[
+              "Organization",
+              "Username",
+              "Email",
+              "Phone Number",
+              "Date Joined",
+              "Status",
+              
+            ].map((header) => (
+              <th key={header}>
+                <div className={Styles.th_content}>
+                  {header}
+                  {header !== "Actions" && (
+                    <div className={Styles.filterWrapper}>
+                      <Image
+                        src="/images/img_filter_results_button.svg"
+                        alt="Filter"
+                        width={16}
+                        height={16}
+                        className={Styles.filter_icon}
+                        onClick={() =>
+                          setShowFilter(showFilter === header ? null : header)
+                        }
+                      />
+                      {showFilter === header && (
+                        <div className={Styles.filterDropdown}>
+                          <FilterPanel
+                            filters={filters}
+                            onChange={handleChange}
+                            onApply={handleApply}
+                            onReset={handleReset}
+                            onClose={() => setShowFilter(null)}
+                            users={users}
+                          />
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </th>
+            ))}
+          </tr>
+        </thead>
+
+        <tbody>
+          {currentUsers.map((user) => (
+            <tr key={user.id}>
+              <td data-label="Organization">{user.organization}</td>
+              <td data-label="Username">
+                <Link
+                  href={`/dashboard/usersDetails/${user.id}`}
+                  className={Styles.username_link}
+                >
+                  {user.username}
+                </Link>
+              </td>
+              <td className={Styles.break_all} data-label="Email">
+                {user.email}
+              </td>
+              <td data-label="Phone number">
+                {user.phoneNumber.replace("+234", "0")}
+              </td>
+              <td data-label="Date joined">
+                {`${new Date(user.dateJoined).toLocaleDateString("en-US", {
+                  month: "long",
+                  day: "numeric",
+                  year: "numeric",
+                })} ${new Date(user.dateJoined).toLocaleTimeString("en-US", {
+                  hour: "numeric",
+                  minute: "2-digit",
+                  hour12: true,
+                })}`}
+              </td>
+              <td data-label="Status">
+                <button
+                  className={`${Styles.status_btn} ${getStatusVariant(
+                    user.status
+                  )}`}
+                >
+                  {user.status}
+                </button>
+              </td>
+              <td className={Styles.actions} data-label="Actions">
+                <UserActionsMenu
+                  userId={user.id}
+                  onBlacklist={handleBlacklist}
+                  onActivate={handleActivate}
+                />
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      {/* === Mobile full-screen overlay for filter === */}
+      {showFilter === "mobile" && (
+        <div
+          className={Styles.mobileFilterOverlay}
+          role="dialog"
+          aria-modal="true"
+        >
+          <div className={Styles.mobileFilterSheet}>
+            <FilterPanel
+              filters={filters}
+              onChange={handleChange}
+              onApply={handleApply}
+              onReset={handleReset}
+              onClose={() => setShowFilter(null)}
+              users={users}
+            />
+          </div>
+        </div>
+      )}
+    
+    </div>
+   {/* Pagination */}
+          
       <div className={Styles.pagination}>
         <div className={Styles.items_info}>
           Showing
@@ -294,6 +302,7 @@ const UsersTable: React.FC<UsersTableProps> = ({ users, updateUserStatus }) => {
         </div>
       </div>
     </>
+
   );
 };
 
