@@ -4,20 +4,20 @@ import React from "react";
 import StatsCard from "@/components/dashboard/StatsCard";
 import UsersTable from "@/components/dashboard/UsersTable";
 import { useUser } from "@/hooks/useUser";
-import {Spinner} from "@/components/common/Spinner";
+import { Spinner } from "@/components/common/Spinner";
 
 const User = () => {
-  const { users, loading } = useUser();
+  const { users, loading, updateUserStatus } = useUser();
 
   return (
     <main>
       {loading ? (
-        <Spinner/>
+        <Spinner />
       ) : (
         <>
           <h1>Users</h1>
           <StatsCard />
-          <UsersTable users={users} />
+          <UsersTable users={users} updateUserStatus={updateUserStatus} />
         </>
       )}
     </main>

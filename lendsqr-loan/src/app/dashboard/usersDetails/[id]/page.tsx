@@ -10,9 +10,19 @@ import {Spinner} from "@/components/common/Spinner";
 export default function Page() {
   const params = useParams();
   const { id } = params;
-  const { users, loading } = useUser();
+  const { users, loading, updateUserStatus } = useUser();
 
   const userData: ApiUser | undefined = users.find((user) => user.id === id);
+
+  const handleBlacklist = (userId: string) => {
+    updateUserStatus(userId, "Blacklisted");
+    console.log("Blacklisted user:", userId);
+  };
+
+  const handleActivate = (userId: string) => {
+    updateUserStatus(userId, "Active");
+    console.log("Activated user:", userId);
+  };
 
   if (loading)
     return (
@@ -23,8 +33,8 @@ export default function Page() {
   return (
     <UserInfo
       user={userData}
-      onBlacklist={() => alert("Blacklisted!")}
-      onActivate={() => alert("Activated!")}
+      onBlacklist={() => handleBlacklist(userData.id)}
+      onActivate={() => handleActivate(userData.id)}
     />
   );
 }

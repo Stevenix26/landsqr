@@ -1,17 +1,15 @@
-// Color and font variables
 @use "../variables.scss" as *;
 
 .userDetails {
   font-family: var(--font-work-sans);
   color: $color-primary;
 
-  // Back link
   .backLink {
     margin-bottom: 15px;
 
     span {
       color: $color-secondary;
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 400;
       cursor: pointer;
       transition: color 0.2s ease;
@@ -22,7 +20,6 @@
     }
   }
 
-  // Top actions
   .actions {
     display: flex;
     justify-content: space-between;
@@ -73,12 +70,11 @@
     }
   }
 
-  // User header
   .userContainer {
     width: 100%;
     max-width: 1440px;
     background: $color-light-bg;
-    border-radius: 10px;
+    border-radius: 4px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
     padding: 0px 10px;
     margin: 0 auto 20px auto;
@@ -86,8 +82,10 @@
 
   .header {
     display: flex;
+    flex-direction: flex-start;
     align-items: center;
     padding: 25px;
+    gap: 20px;
 
     .profile {
       display: flex;
@@ -127,8 +125,9 @@
       margin: 0 20px;
     }
 
-    .tier {
-      text-align: center;
+    .tier,
+    .account {
+      text-align: left;
 
       p {
         font-weight: 500;
@@ -141,32 +140,20 @@
         color: orange;
         font-size: 18px;
       }
-    }
-
-    .account {
-      text-align: left;
-      color: $color-primary;
 
       h3 {
         font-weight: 600;
         font-size: 20px;
         margin-bottom: 4px;
       }
-      p {
-        font-size: 12px;
-        color: #545f7d;
-      }
     }
   }
 
-  // Tabs
   .tabs {
     display: flex;
     gap: 30px;
     padding: 0px 35px;
-    flex-direction: row;
     justify-content: space-between;
-    align-items: center;
     flex-wrap: wrap;
 
     span {
@@ -178,8 +165,10 @@
 
       &.active {
         color: $color-accent;
-        font-weight: 500;
+        font-weight: 400;
         border-bottom: 2px solid $color-accent;
+        width: 150px;
+        text-align: center;
       }
 
       &:hover {
@@ -188,46 +177,82 @@
     }
   }
 
-  // Section card
-  .section {
-    background: #fff;
+  .sectionContainer {
     padding: 20px 20px 0px 25px;
-    margin-top: 1px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    background-color: $color-light-bg;
+    border-radius: 4px;
 
-    h4 {
-      font-size: 16px;
-      font-weight: 500;
-      margin-bottom: 20px;
-      color: #213f7d;
-      text-transform: capitalize;
-    }
+    .section {
+      margin-top: 1px;
 
-    .infoGrid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      border-bottom: 1px solid #e5e7eb;
-      padding-bottom: 20px;
-      margin-bottom: 20px;
-
-      .label {
-        font-size: 12px;
-        font-weight: 400;
-        color: #545f7d;
-        margin-bottom: 4px;
-        text-transform: uppercase;
-      }
-
-      .value {
+      h4 {
         font-size: 16px;
         font-weight: 500;
-        color: #545f7d;
+        margin-bottom: 20px;
+        color: #213f7d;
+        text-transform: capitalize;
+      }
+
+      .infoGrid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        border-bottom: 1px solid #e5e7eb;
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+
+        .label {
+          font-size: 12px;
+          font-weight: 400;
+          color: #545f7d;
+          margin-bottom: 4px;
+          text-transform: uppercase;
+        }
+
+        .value {
+          font-size: 16px;
+          font-weight: 500;
+          color: #545f7d;
+        }
       }
     }
   }
 
-  /* ---------------- MOBILE RESPONSIVE ---------------- */
-  @media (max-width: 425px) {
+  /* ---------------- RESPONIVE BREAKPOINTS ---------------- */
+  @media (max-width: 1024px) {
+    .header {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 20px;
+    }
+
+    .line {
+      display: none;
+    }
+
+    .tabs {
+      gap: 20px;
+      padding: 0px 20px;
+    }
+
+    .sectionContainer {
+      padding: 15px 15px 0px 20px;
+
+      .section {
+        h4 {
+          font-size: 15px;
+        }
+
+        .infoGrid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 10px;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
     .actions {
       flex-direction: column;
       align-items: flex-start;
@@ -235,9 +260,6 @@
     }
 
     .header {
-      flex-direction: column;
-      align-items: flex-start;
-      padding: 15px;
       gap: 15px;
 
       .profile {
@@ -252,15 +274,20 @@
         h2 {
           font-size: 18px;
         }
-      }
-
-      .line {
-        display: none;
+        p {
+          font-size: 13px;
+        }
       }
 
       .tier,
       .account {
-        text-align: left;
+        h3 {
+          font-size: 18px;
+        }
+
+        p {
+          font-size: 13px;
+        }
       }
     }
 
@@ -271,19 +298,73 @@
       padding: 0px 15px;
     }
 
-    .section {
-      padding: 15px;
+    .sectionContainer {
+      .section {
+        .infoGrid {
+          grid-template-columns: 1fr;
+          gap: 15px;
 
-      h4 {
-        font-size: 14px;
+          .label {
+            font-size: 12px;
+          }
+          .value {
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 425px) {
+    .header {
+      padding: 15px;
+    }
+
+    .profile {
+      .avatarContainer {
+        width: 70px;
+        height: 70px;
       }
 
-      .infoGrid {
-        grid-template-columns: 1fr; // stack items
-        gap: 15px;
+      h2 {
+        font-size: 16px;
+      }
+      p {
+        font-size: 12px;
+      }
+    }
 
-        .value {
+    .tier,
+    .account {
+      h3 {
+        font-size: 16px;
+      }
+      p {
+        font-size: 12px;
+      }
+    }
+
+    .tabs {
+      padding: 0px 10px;
+    }
+
+    .sectionContainer {
+      padding: 10px 10px 0px 15px;
+
+      .section {
+        h4 {
           font-size: 14px;
+        }
+        .infoGrid {
+          grid-template-columns: 1fr;
+          gap: 12px;
+
+          .label {
+            font-size: 11px;
+          }
+          .value {
+            font-size: 13px;
+          }
         }
       }
     }

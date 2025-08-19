@@ -170,5 +170,5 @@ export const sidebarMenu: MenuSection[] = [
         href: "/systems-messages",
       },
     ],
-  },
+  }
 ];

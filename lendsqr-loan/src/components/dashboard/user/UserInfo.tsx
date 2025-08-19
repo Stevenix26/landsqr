@@ -97,138 +97,144 @@ const UserInfo: React.FC<UserDetailsProps> = ({
           ))}
         </div>
       </div>
-
-      {/* Personal Info */}
-      <section className={Styles.section}>
-        <h4>Personal Information</h4>
-        <div className={Styles.infoGrid}>
-          <div>
-            <p className={Styles.label}>Full Name</p>
-            <p className={Styles.value}>{user.userInfo.fullName}</p>
-          </div>
-          <div>
-            <p className={Styles.label}>Phone Number</p>
-            <p className={Styles.value}>{user.phoneNumber}</p>
-          </div>
-          <div>
-            <p className={Styles.label}>Email Address</p>
-            <p className={Styles.value}>{user.email}</p>
-          </div>
-          <div>
-            <p className={Styles.label}>BVN</p>
-            <p className={Styles.value}>{user.userInfo.bvn}</p>
-          </div>
-          <div>
-            <p className={Styles.label}>Gender</p>
-            <p className={Styles.value}>{user.userInfo.gender}</p>
-          </div>
-          <div>
-            <p className={Styles.label}>Marital Status</p>
-            <p className={Styles.value}>{user.userInfo.maritalStatus}</p>
-          </div>
-          <div>
-            <p className={Styles.label}>Children</p>
-            <p className={Styles.value}>{user.userInfo.children}</p>
-          </div>
-          <div>
-            <p className={Styles.label}>Type of Residence</p>
-            <p className={Styles.value}>{user.userInfo.typeOfResidence}</p>
-          </div>
-        </div>
-      </section>
-
-      <div className={Styles.Hline}></div>
-
-      {/* Employment Info */}
-      <section className={Styles.section}>
-        <h4>Education and Employment</h4>
-        <div className={Styles.infoGrid}>
-          <div>
-            <p className={Styles.label}>Level of Education</p>
-            <p className={Styles.value}>
-              {user.employmentInfo.levelOfEducation?.toString() || ''}
-            </p>
-          </div>
-          <div>
-            <p className={Styles.label}>Employment Status</p>
-            <p className={Styles.value}>
-              {user.employmentInfo.employmentStatus}
-            </p>
-          </div>
-          <div>
-            <p className={Styles.label}>Sector of Employment</p>
-            <p className={Styles.value}>
-              {user.employmentInfo.sectorOfEmployment}
-            </p>
-          </div>
-          <div>
-            <p className={Styles.label}>Duration of Employment</p>
-            <p className={Styles.value}>
-              {user.employmentInfo.durationOfEmployment}
-            </p>
-          </div>
-          <div>
-            <p className={Styles.label}>Office Email</p>
-            <p className={Styles.value}>{user.employmentInfo.officeEmail}</p>
-          </div>
-          <div>
-            <p className={Styles.label}>Monthly Income</p>
-            <p className={Styles.value}>{user.employmentInfo.monthlyIncome}</p>
-          </div>
-          <div>
-            <p className={Styles.label}>Loan Repayment</p>
-            <p className={Styles.value}>{user.employmentInfo.loanRepayment}</p>
-          </div>
-        </div>
-      </section>
-
-      <div className={Styles.Hline}></div>
-
-      {/* Socials */}
-      <section className={Styles.section}>
-        <h4>Socials</h4>
-        <div className={Styles.infoGrid}>
-          <div>
-            <p className={Styles.label}>Twitter</p>
-            <p className={Styles.value}>{user.socials.twitter}</p>
-          </div>
-          <div>
-            <p className={Styles.label}>Facebook</p>
-            <p className={Styles.value}>{user.socials.facebook}</p>
-          </div>
-          <div>
-            <p className={Styles.label}>Instagram</p>
-            <p className={Styles.value}>{user.socials.instagram}</p>
-          </div>
-        </div>
-      </section>
-
-      <div className={Styles.Hline}></div>
-
-      {/* Guarantors */}
-      <section className={Styles.section}>
-        <h4>Guarantor</h4>
-        {user.guarantors.map((guarantor, index) => (
-          <div key={index} className={Styles.infoGrid}>
+      <div className={Styles.sectionContainer}>
+        {/* Personal Info */}
+        <section className={Styles.section}>
+          <h4>Personal Information</h4>
+          <div className={Styles.infoGrid}>
             <div>
               <p className={Styles.label}>Full Name</p>
-              <p className={Styles.value}>{guarantor.name}</p>
+              <p className={Styles.value}>{user.userInfo.fullName}</p>
             </div>
             <div>
               <p className={Styles.label}>Phone Number</p>
-              <p className={Styles.value}>{guarantor.phoneNumber}</p>
+              <p className={Styles.value}>{user.phoneNumber}</p>
             </div>
             <div>
               <p className={Styles.label}>Email Address</p>
-              <p className={Styles.value}>{guarantor.email}</p>
+              <p className={Styles.value}>{user.email}</p>
             </div>
             <div>
-              <p className={Styles.label}>Relationship</p>
-              <p className={Styles.value}>{guarantor.relationship}</p>
+              <p className={Styles.label}>BVN</p>
+              <p className={Styles.value}>{user.userInfo.bvn}</p>
+            </div>
+            <div>
+              <p className={Styles.label}>Gender</p>
+              <p className={Styles.value}>{user.userInfo.gender}</p>
+            </div>
+            <div>
+              <p className={Styles.label}>Marital Status</p>
+              <p className={Styles.value}>{user.userInfo.maritalStatus}</p>
+            </div>
+            <div>
+              <p className={Styles.label}>Children</p>
+              <p className={Styles.value}>{user.userInfo.children}</p>
+            </div>
+            <div>
+              <p className={Styles.label}>Type of Residence</p>
+              <p className={Styles.value}>{user.userInfo.typeOfResidence}</p>
             </div>
           </div>
-        ))}
-      </section>
+        </section>
+
+        <div className={Styles.Hline}></div>
+
+        {/* Employment Info */}
+
+        <section className={Styles.section}>
+          <h4>Education and Employment</h4>
+          <div className={Styles.infoGrid}>
+            <div>
+              <p className={Styles.label}>Level of Education</p>
+              <p className={Styles.value}>
+                {user.employmentInfo.levelOfEducation?.toString() || ""}
+              </p>
+            </div>
+            <div>
+              <p className={Styles.label}>Employment Status</p>
+              <p className={Styles.value}>
+                {user.employmentInfo.employmentStatus}
+              </p>
+            </div>
+            <div>
+              <p className={Styles.label}>Sector of Employment</p>
+              <p className={Styles.value}>
+                {user.employmentInfo.sectorOfEmployment}
+              </p>
+            </div>
+            <div>
+              <p className={Styles.label}>Duration of Employment</p>
+              <p className={Styles.value}>
+                {user.employmentInfo.durationOfEmployment}
+              </p>
+            </div>
+            <div>
+              <p className={Styles.label}>Office Email</p>
+              <p className={Styles.value}>{user.employmentInfo.officeEmail}</p>
+            </div>
+            <div>
+              <p className={Styles.label}>Monthly Income</p>
+              <p className={Styles.value}>
+                {user.employmentInfo.monthlyIncome}
+              </p>
+            </div>
+            <div>
+              <p className={Styles.label}>Loan Repayment</p>
+              <p className={Styles.value}>
+                {user.employmentInfo.loanRepayment}
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <div className={Styles.Hline}></div>
+
+        {/* Socials */}
+        <section className={Styles.section}>
+          <h4>Socials</h4>
+          <div className={Styles.infoGrid}>
+            <div>
+              <p className={Styles.label}>Twitter</p>
+              <p className={Styles.value}>{user.socials.twitter}</p>
+            </div>
+            <div>
+              <p className={Styles.label}>Facebook</p>
+              <p className={Styles.value}>{user.socials.facebook}</p>
+            </div>
+            <div>
+              <p className={Styles.label}>Instagram</p>
+              <p className={Styles.value}>{user.socials.instagram}</p>
+            </div>
+          </div>
+        </section>
+
+        <div className={Styles.Hline}></div>
+
+        {/* Guarantors */}
+        <section className={Styles.section}>
+          <h4>Guarantor</h4>
+          {user.guarantors.map((guarantor, index) => (
+            <div key={index} className={Styles.infoGrid}>
+              <div>
+                <p className={Styles.label}>Full Name</p>
+                <p className={Styles.value}>{guarantor.name}</p>
+              </div>
+              <div>
+                <p className={Styles.label}>Phone Number</p>
+                <p className={Styles.value}>{guarantor.phoneNumber}</p>
+              </div>
+              <div>
+                <p className={Styles.label}>Email Address</p>
+                <p className={Styles.value}>{guarantor.email}</p>
+              </div>
+              <div>
+                <p className={Styles.label}>Relationship</p>
+                <p className={Styles.value}>{guarantor.relationship}</p>
+              </div>
+            </div>
+          ))}
+        </section>
+      </div>
     </div>
   );
 };

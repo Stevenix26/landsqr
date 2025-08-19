@@ -11,17 +11,23 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false); // <-- Add loading state
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
+    setError("");
 
-    // Fake login check
-    if (email === "test@lendsqr.com" && password === "password") {
-      localStorage.setItem("lendsqr_token", "fake-jwt-token");
-      router.push("/dashboard");
-    } else {
-      setError("Invalid email or password");
-    }
+    // Simulate async login
+    setTimeout(() => {
+      if (email === "test@lendsqr.com" && password === "password") {
+        localStorage.setItem("lendsqr_token", "fake-jwt-token");
+        router.push("/dashboard");
+      } else {
+        setError("Invalid email or password");
+      }
+      setLoading(false);
+    }, 1500);
   };
 
   return (
@@ -49,7 +55,6 @@ export default function LoginPage() {
 
           <form onSubmit={handleLogin} className={styles.form}>
             <div className={styles.inputGroup}>
-              {/* <label className={styles.label}>Email</label> */}
               <input
                 type="email"
                 className={styles.input}
@@ -61,7 +66,6 @@ export default function LoginPage() {
             </div>
 
             <div className={styles.inputGroup}>
-              {/* <label className={styles.label}>Password</label> */}
               <div className={styles.passwordWrapper}>
                 <input
                   type={showPassword ? "text" : "password"}
@@ -89,8 +93,16 @@ export default function LoginPage() {
               <p style={{ color: "red", fontSize: "0.9rem" }}>{error}</p>
             )}
 
-            <button type="submit" className={styles.loginButton}>
-              LOG IN
+            <button
+              type="submit"
+              className={styles.loginButton}
+              disabled={loading}
+            >
+              {loading ? (
+                <span className={styles.spinner}></span> // <-- spinner element
+              ) : (
+                "LOG IN"
+              )}
             </button>
           </form>
         </div>

@@ -34,7 +34,15 @@
     border: none;
     cursor: pointer;
     font-size: 1.5rem;
-    border-radius: 50%;
+    // border-radius: 50%;
+
+    button {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-size: 1.5rem;
+      border-radius: 30%;
+    }
     // color: #333;
     &:hover {
       background: $color-accent;
@@ -76,9 +84,19 @@
     &.active {
       border-left: 4px solid $color-accent;
       background-color: rgba(57, 205, 204, 0.1);
-      font-weight: 500;
-      width: 100%;
+      font-weight: 400;
+      width: 248px;
+      right: 16px;
+      height: 40px;
       position: relative;
+      span{
+        left: 14px;
+        position: relative;
+      }
+      img{
+        left: 14px;
+        position: relative;
+      }
     }
   }
 
@@ -170,9 +188,9 @@
       position: absolute;
       right: -50px;
       top: 10px;
-      background: $color-accent;
+      background: $color-primary;
       border: 1px solid #ccc;
-      border-radius: 60px;
+      border-radius: 70px;
 
       &:hover {
         background: darken(#f3f6fa, 5%);
@@ -181,5 +199,32 @@
         background: adjust-color($color-accent, $lightness: -10%);
       }
     }
+  }
+  .footer {
+    border-top: 1px solid #f3f4f6;
+    margin-top: 50px; // Push to bottom
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .logout {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 400;
+    color: #3a3a3a;
+    text-decoration: none;
+    font-size: 14px;
+
+    &:hover {
+      color: #1a73e8;
+    }
+  }
+
+  .version {
+    font-size: 12px;
+    color: #999;
   }
 }

@@ -2,8 +2,8 @@
 "use client";
 import React from "react";
 import { useRouter } from "next/navigation";
-import Topbar from "@/components/layout/Top";
-import Sidebar from "@/components/layout/Side";
+import Topbar from "@/components/layout/TopBar";
+import Sidebar from "@/components/layout/SideBar";
 import { useSidebar } from "@/hooks/useSidebar";
 import styles from "@/styles/components/dashboard.module.scss";
 import { imageOptimizer } from "next/dist/server/image-optimizer";

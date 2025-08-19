@@ -1,15 +1,18 @@
-import { renderHook, act, waitFor } from "@testing-library/react";
+import { renderHook, waitFor } from "@testing-library/react";
 import { useUser } from "@/hooks/useUser";
 
-describe("useUsers hook", () => {
+describe("useUser hook", () => {
   beforeEach(() => {
     localStorage.clear();
     jest.resetAllMocks();
   });
 
-  it("should fetch users and set them in state (positive)", async () => {
-    // Mock fetch
-    global.fetch = jest.fn().mockResolvedValue({
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
+  it("fetches users successfully", async () => {
+    (global as any).fetch = jest.fn().mockResolvedValue({
       ok: true,
       json: async () => [
         {
@@ -51,7 +54,7 @@ describe("useUsers hook", () => {
           accountNumber: 123456,
         },
       ],
-    } as unknown as Response);
+    });
 
     const { result } = renderHook(() => useUser());
 
@@ -62,11 +65,13 @@ describe("useUsers hook", () => {
     });
   });
 
-  it("should handle fetch error (negative)", async () => {
-    global.fetch = jest.fn().mockResolvedValue({
+  it("handles fetch error correctly", async () => {
+    (global as any).fetch = jest.fn().mockResolvedValue({
       ok: false,
       status: 500,
-    } as unknown as Response);
+      statusText: "Internal Server Error",
+      json: async () => ({}),
+    });
 
     const { result } = renderHook(() => useUser());
 
