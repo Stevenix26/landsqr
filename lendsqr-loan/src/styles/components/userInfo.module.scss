@@ -2,7 +2,7 @@
 
 .userDetails {
   font-family: var(--font-work-sans);
-  color: $color-primary;
+  color: $color-secondary;
   max-width: 1440px;
   margin: 0 auto;
   padding: 0 1rem;
@@ -110,12 +110,13 @@
       .avatarContainer {
         width: 100px;
         height: 100px;
-        background: #f0f4f8;
+        background: #d3dee9;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         flex-shrink: 0;
+        fill-opacity: 16%;
 
         .avatar {
           border-radius: 50%;
@@ -133,7 +134,7 @@
         }
         p {
           font-size: 0.875rem;
-          color: #545f7d;
+          color: $color-secondary;
           margin: 0;
         }
       }
@@ -155,7 +156,7 @@
         font-weight: 500;
         font-size: 0.875rem;
         margin-bottom: 0.5rem;
-        color: $color-primary;
+        color: $color-secondary;
         margin: 0 0 0.5rem 0;
       }
 
@@ -183,13 +184,15 @@
     background: rgba(255, 255, 255, 0.5);
 
     span {
-      font-size: 0.875rem;
+      font: size 16px;
+      font-weight: 400;
       cursor: pointer;
       padding: 0.75rem 0;
-      color: #6b7280;
+      color: #000000;
       transition: all 0.2s ease;
       position: relative;
       white-space: nowrap;
+      font-family: "SF Compact Text", sans-serif;
 
       &.active {
         color: $color-accent;
@@ -233,7 +236,7 @@
         font-size: 1rem;
         font-weight: 600;
         margin-bottom: 1.5rem;
-        color: #213f7d;
+        color: $color-primary;
         text-transform: capitalize;
         padding-bottom: 0.5rem;
       }
@@ -255,7 +258,7 @@
         .label {
           font-size: 0.75rem;
           font-weight: 500;
-          color: #545f7d;
+          color: $color-secondary;
           margin-bottom: 0.5rem;
           text-transform: uppercase;
           letter-spacing: 0.5px;
@@ -264,7 +267,7 @@
         .value {
           font-size: 1rem;
           font-weight: 500;
-          color: #213f7d;
+          color: $color-secondary;
           line-height: 1.5;
           word-break: break-word;
         }
