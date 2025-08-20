@@ -19,10 +19,14 @@
   th {
     font-weight: 600;
     padding: 14px 12px;
-    color: $color-primary;
+    color: $color-secondary;
+    // opacity: 0.9;
     font-size: 13px;
     position: relative;
     white-space: nowrap;
+    text-transform: uppercase;
+    // filter: brightness(0.6);
+
 
     .th_content {
       display: flex;
@@ -57,7 +61,10 @@
   td {
     padding: 14px 12px;
     font-size: 14px;
-    color: $color-primary;
+    color: $color-secondary;
+    // opacity: 0.9;
+    // filter: brightness(0.9);
+
     border-bottom: 1px solid #e5e9f2;
     vertical-align: top; // Align to top for multi-line content
     min-height: 60px; // Minimum height for consistency

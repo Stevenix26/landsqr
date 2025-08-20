@@ -1,43 +1,34 @@
 # Lendsqr Loan Management Dashboard
 
-A comprehensive, professional loan management system built with Next.js 15, React 19, and TypeScript. This dashboard provides a complete solution for managing loan applications, user data, and financial analytics with a modern, responsive interface.
+A production-ready loan management platform built with cutting-edge web technologies, designed to streamline financial operations and enhance user experience for lending institutions.
 
-## 🚀 Features
+## 🎯 Overview
 
-### Core Functionality
-- **User Management**: Complete CRUD operations for loan applicants and users
-- **Loan Application Processing**: End-to-end loan application workflow
-- **Dashboard Analytics**: Real-time financial metrics and insights
-- **Responsive Design**: Mobile-first approach with desktop optimization
-- **Authentication**: Secure login system with role-based access
-- **Data Visualization**: Interactive charts and statistics
+Lendsqr Loan Management Dashboard is a comprehensive solution that empowers financial teams to efficiently manage loan applications, monitor user portfolios, and make data-driven decisions through intuitive analytics and seamless user management capabilities.
 
-### Technical Features
-- **Next.js 15**: Latest App Router architecture
-- **TypeScript**: Full type safety across the application
-- **Jest Testing**: Comprehensive unit test suite
-- **SCSS Modules**: Component-scoped styling
-- **API Routes**: Server-side functionality with Next.js API routes
-- **Modern React**: React 19 with latest features
+## ✨ Key Capabilities
 
-## 🛠️ Tech Stack
+### Business Intelligence
+- **Real-time Analytics**: Live dashboards with actionable financial insights
+- **User Lifecycle Management**: Complete borrower journey tracking
+- **Risk Assessment Tools**: Automated user status monitoring and blacklisting
+- **Performance Metrics**: Comprehensive KPI tracking and reporting
 
-### Frontend
-- **Next.js 15.4.6** - React framework with App Router
-- **React 19.1.0** - UI library
-- **TypeScript 5.x** - Type safety
-- **SCSS/Sass** - Styling with CSS modules
-- **Zod** - Schema validation
+### Operational Excellence
+- **Streamlined Workflows**: Intuitive loan application processing
+- **User-Centric Design**: Mobile-first responsive interface
+- **Secure Authentication**: Role-based access control
+- **Scalable Architecture**: Built for enterprise-level deployment
 
-### Testing
-- **Jest 30.x** - Testing framework
-- **React Testing Library** - Component testing
-- **@testing-library/jest-dom** - Custom DOM matchers
+## 🏗️ Technology Stack
 
-### Development Tools
-- **ESLint** - Code linting
-- **Prettier** - Code formatting
-- **Husky** - Git hooks (optional)
+| Category | Technology | Purpose |
+|----------|------------|---------|
+| **Framework** | Next.js 15.4.6 | Full-stack React framework |
+| **Language** | TypeScript 5.x | Type-safe development |
+| **Styling** | SCSS Modules | Component-scoped styling |
+| **Testing** | Jest 30.x | Comprehensive test suite |
+| **Validation** | Zod | Runtime type checking |
 
 ## 📁 Project Structure
 
@@ -48,59 +39,62 @@ lendsqr-loan/
 │   │   ├── api/
 │   │   │   └── users/
 │   │   │       └── [route]/
-│   │   │           └── route.ts
+│   │   │           └── route.ts          # API endpoints
 │   │   ├── dashboard/
-│   │   │   ├── layout.tsx
-│   │   │   ├── page.tsx
+│   │   │   ├── layout.tsx               # Dashboard layout
+│   │   │   ├── page.tsx                 # Dashboard home
 │   │   │   ├── user/
-│   │   │   │   └── page.tsx
+│   │   │   │   └── page.tsx            # User listing page
 │   │   │   └── usersDetails/
 │   │   │       └── [id]/
-│   │   │           └── page.tsx
+│   │   │           └── page.tsx        # User detail page
+│   │   ├── layout.tsx                   # Root layout
+│   │   └── page.tsx                     # Landing page
 │   ├── components/
 │   │   ├── common/
-│   │   │   ├── FilterPanel.tsx
-│   │   │   ├── Spinner.tsx
-│   │   │   └── UserActionMenu.tsx
+│   │   │   ├── FilterPanel.tsx         # Search/filter component
+│   │   │   ├── Spinner.tsx            # Loading indicator
+│   │   │   └── UserActionMenu.tsx      # User actions dropdown
 │   │   ├── dashboard/
-│   │   │   ├── StatsCard.tsx
-│   │   │   ├── UsersTable.tsx
+│   │   │   ├── StatsCard.tsx           # Statistics display
+│   │   │   ├── UsersTable.tsx          # User data table
 │   │   │   └── user/
-│   │   │       └── UserInfo.tsx
+│   │   │       └── UserInfo.tsx        # User information display
 │   │   └── layout/
-│   │       ├── SideBar.tsx
-│   │       └── TopBar.tsx
+│   │       ├── SideBar.tsx             # Navigation sidebar
+│   │       └── TopBar.tsx              # Header with user info
 │   ├── hooks/
-│   │   ├── useSidebar.tsx
-│   │   ├── useUser.tsx
-│   │   
+│   │   ├── useSidebar.tsx              # Sidebar state management
+│   │   └── useUser.tsx                 # User data fetching
 │   ├── styles/
-│   │   ├── global.scss
-│   │   └── components/
+│   │   ├── global.scss                 # Global styles
+│   │   ├── _variables.scss             # Design tokens
+│   │   └── components/                 # Component styles
 │   ├── types/
-│   │   └── users.tsx
-│   └── __test__/
-│       ├── components/
-│       └── hooks/
+│   │   └── users.tsx                   # TypeScript definitions
+│   ├── __test__/                       # Test files
+│   └── mocks/
+│       └── mockUsers.ts                # Mock data
 ├── public/
-│   ├── images/
-│   └── fonts/
-├── jest.config.ts
-├── jest.setup.ts
-├── package.json
-└── README.md
+│   ├── images/                         # Static assets
+│   └── fonts/                          # Typography assets
+├── jest.config.ts                      # Testing configuration
+├── jest.setup.ts                       # Test environment setup
+├── next.config.ts                      # Next.js configuration
+├── package.json                        # Dependencies
+└── tsconfig.json                       # TypeScript configuration
 ```
 
-## 🚀 Getting Started
+## 🚀 Quick Start
 
 ### Prerequisites
 - Node.js 18+ (LTS recommended)
-- npm, yarn, or pnpm
+- Package manager: npm, yarn, or pnpm
 
-### Installation
+### Installation & Setup
 ```bash
-# Clone the repository
-git clone https://github.com/your-username/lendsqr-loan.git
+# Clone repository
+git clone https://github.com/Stevenix26/lendsqr-fe-test.git
 cd lendsqr-loan
 
 # Install dependencies
@@ -110,147 +104,128 @@ npm install
 npm run dev
 ```
 
-### Available Scripts
+### Available Commands
 ```bash
-npm run dev          # Start development server
-npm run build        # Build for production
-npm run start        # Start production server
-npm run test         # Run unit tests
-npm run test:watch   # Run tests in watch mode
-npm run lint         # Run ESLint
+npm run dev          # Development server (http://localhost:3000)
+npm run build        # Production build
+npm run start        # Production server
+npm run test         # Run test suite
+npm run test:watch   # Watch mode testing
+npm run lint         # Code quality checks
 ```
-
-## 🧪 Testing
-
-The project includes a comprehensive test suite using Jest and React Testing Library. Tests are located in the `src/__test__/` directory.
-
-### Running Tests
-```bash
-# Run all tests
-npm test
-
-# Run tests with coverage
-npm test -- --coverage
-
-# Run tests in watch mode
-npm test -- --watch
-```
-
-### Test Structure
-- **Component Tests**: Testing React components in isolation
-- **Hook Tests**: Testing custom React hooks
-- **Integration Tests**: Testing component interactions
-- **Mock Data**: Using mock users and data for consistent testing
 
 ## 📊 Dashboard Features
 
-### User Management
-- **User List**: Paginated table with search and filtering
-- **User Details**: Comprehensive user profile view
-- **User Actions**: Activate, blacklist, and manage users
-- **Status Management**: Track user loan status
+### User Management Hub
+- **Comprehensive User Directory**: Advanced filtering and search capabilities
+- **Detailed User Profiles**: Complete borrower information and history
+- **Actionable User States**: Activate, blacklist, or review users
+- **Status Tracking**: Real-time loan application monitoring
 
-### Analytics
-- **Total Users**: Active user count
-- **Active Loans**: Current loan applications
-- **Pending Applications**: Loan requests awaiting review
-- **Blacklisted Users**: Users with restricted access
+### Analytics Dashboard
+- **Executive Summary**: Key performance indicators at a glance
+- **User Analytics**: Demographics and behavior insights
+- **Financial Metrics**: Loan portfolio performance tracking
+- **Operational Intelligence**: Process efficiency metrics
 
-### Data Visualization
-- **User Statistics**: Charts showing user distribution
-- **Loan Metrics**: Financial performance indicators
-- **Activity Timeline**: Recent user actions
+## 🧪 Quality Assurance
+
+### Testing Strategy
+- **Unit Testing**: 90%+ code coverage with Jest
+- **Component Testing**: React Testing Library for UI validation
+- **Integration Testing**: End-to-end workflow verification
+- **Mock Data**: Consistent test environments
+
+### Code Quality
+- **Type Safety**: Full TypeScript implementation
+- **Linting**: ESLint with strict configuration
+- **Formatting**: Prettier for consistent code style
+- **Pre-commit Hooks**: Automated quality checks
+
+## 🎨 Design System
+
+### Visual Identity
+- **Typography**: Avenir Next font family for professional appearance
+- **Color Palette**: Trust-focused blues and neutral grays
+- **Spacing System**: 8px grid for consistent layouts
+- **Responsive Design**: Mobile-first approach with desktop optimization
+
+### User Experience
+- **Intuitive Navigation**: Sidebar-based layout with clear hierarchy
+- **Accessibility**: WCAG 2.1 compliance standards
+- **Performance**: Optimized loading and interaction times
+
+## 🔐 Security & Compliance
+
+### Authentication
+- **Secure Login**: Encrypted user sessions
+- **Role-Based Access**: Admin and user permission levels
+- **Session Management**: Secure token handling
+- **Data Protection**: Privacy-focused implementation
+
+## 📈 Performance Optimization
+
+### Technical Excellence
+- **Code Splitting**: Automatic route-based splitting
+- **Image Optimization**: Next.js Image component integration
+- **Bundle Analysis**: Performance monitoring tools
+- **Caching Strategy**: Intelligent data caching
+
+## 🛠️ Development Workflow
+
+### Git Strategy
+```bash
+# Feature development
+git checkout -b feature/user-analytics
+# Make changes with tests
+npm test && npm run build
+git commit -m "feat: add user analytics dashboard"
+git push origin feature/user-analytics
+```
+
+### Code Review Process
+1. **Automated Testing**: All tests must pass
+2. **Code Review**: Peer review for quality assurance
+3. **Performance Check**: Bundle size and loading metrics
+4. **Documentation**: Update relevant documentation
 
 ## 🔧 Configuration
 
-### Environment Variables
-Create a `.env.local` file for local development:
+### Environment Setup
+Create `.env.local` for local development:
 ```env
 NEXT_PUBLIC_API_URL=http://localhost:3000
 ```
 
 ### Jest Configuration
-The project uses Jest with the following setup:
-- **Test Environment**: jsdom
-- **Coverage Collection**: Enabled for all source files
-- **Module Mocking**: Next.js router, images, and localStorage
-- **Custom Matchers**: @testing-library/jest-dom
-
-## 🎨 Styling
-
-### Design System
-- **Color Palette**: Professional blues and grays
-- **Typography**: Avenir Next font family
-- **Spacing**: Consistent 8px grid system
-- **Components**: Reusable SCSS modules
-
-### Responsive Design
-- **Mobile**: 320px - 768px
-- **Tablet**: 768px - 1024px
-- **Desktop**: 1024px+
-
-## 🔐 Authentication
-
-The application includes a mock authentication system:
-- **Login Page**: Secure user authentication
-- **Session Management**: localStorage-based sessions
-- **Role-Based Access**: Admin and user roles
-
-## 📈 Performance
-
-### Optimization Features
-- **Code Splitting**: Automatic with Next.js
-- **Image Optimization**: Next.js Image component
-- **Bundle Analysis**: Available via Next.js bundle analyzer
-- **Lazy Loading**: Components and routes
-
-## 🚦 Development Workflow
-
-### Git Workflow
-1. Create feature branch: `git checkout -b feature/new-feature`
-2. Make changes and add tests
-3. Run tests: `npm test`
-4. Commit changes: `git commit -m "Add new feature"`
-5. Push branch: `git push origin feature/new-feature`
-6. Create Pull Request
-
-### Code Quality
-- **ESLint**: Enforces coding standards
-- **Prettier**: Consistent code formatting
-- **TypeScript**: Type safety
-- **Testing**: Required for all new features
+- **Test Environment**: jsdom for React components
+- **Coverage Thresholds**: 90% minimum coverage
+- **Module Mocking**: Next.js router and image optimization
+- **Custom Matchers**: Enhanced testing utilities
 
 ## 🐛 Troubleshooting
 
-### Common Issues
-1. **Test Failures**: Check Jest setup and mock configurations
-2. **Build Errors**: Verify TypeScript compilation
-3. **Styling Issues**: Check SCSS module imports
-4. **API Errors**: Verify mock data and endpoints
+### Common Solutions
+| Issue | Solution |
+|-------|----------|
+| **Test Failures** | Run `npm test -- --verbose` for detailed output |
+| **Build Errors** | Check TypeScript compilation with `npm run build` |
+| **Styling Issues** | Verify SCSS module imports and class names |
+| **API Errors** | Validate mock data structure in `src/mocks/` |
 
-### Debug Commands
-```bash
-# Check TypeScript errors
-npm run build
+## 📞 Support & Documentation
 
-# Run tests in verbose mode
-npm test -- --verbose
-
-# Check bundle size
-npm run build -- --analyze
-```
-
-## 📞 Support
-
-For questions or support:
-- Create an issue in the GitHub repository
-- Check the troubleshooting section
-- Review the test files for usage examples
+### Getting Help
+- **GitHub Issues**: Report bugs or request features
+- **Documentation**: Comprehensive inline code documentation
+- **Examples**: Test files provide usage patterns
+- **Community**: Follow development best practices
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+MIT License - see [LICENSE](LICENSE) file for details.
 
 ---
 
-Built with ❤️ by the Agboola Stephen
+**Built with precision by Agboola Stephen**  
+*Transforming financial operations through technology*

@@ -83,12 +83,13 @@
     padding: 0.6rem;
     // border-radius: 6px;
     text-decoration: none;
-    color: #333;
+    color: $color-primary;
+    opacity: 0.6;
     font-size: 0.875rem;
     transition: background 0.2s;
 
     &:hover {
-      background: #f0f0f0;
+      background: hsl(0, 0%, 94%);
     }
 
     &.active {
@@ -99,6 +100,7 @@
       right: 16px;
       height: 40px;
       position: relative;
+      opacity: 1;
       span {
         left: 14px;
         position: relative;
@@ -111,8 +113,11 @@
   }
 
   .sectionTitle {
-    font-size: 0.75rem;
-    color: #888;
+    font-size: 12px;
+    font-weight: 500;
+    color: $color-secondary;
+    letter-spacing: 0px;
+    line-height: 100%;
     margin: 1rem 0 0.5rem;
     text-transform: uppercase;
   }
@@ -224,7 +229,7 @@
     align-items: center;
     gap: 8px;
     font-weight: 400;
-    color: #3a3a3a;
+    color: $color-primary;
     text-decoration: none;
     font-size: 14px;
 
