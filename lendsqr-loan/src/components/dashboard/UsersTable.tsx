@@ -184,7 +184,7 @@ const UsersTable: React.FC<UsersTableProps> = ({ users, updateUserStatus }) => {
                 "Phone Number",
                 "Date Joined",
                 "Status",
-                "Actions",
+                
               ].map((header) => (
                 <th key={header}>
                   <div className={Styles.th_content}>
