@@ -20,6 +20,7 @@ export const sidebarMenu: MenuSection[] = [
         id: "switch-org",
         label: "Switch Organization",
         icon: "/images/img_briefcase_1.svg",
+        
         hasDropdown: true,
       },
       {
