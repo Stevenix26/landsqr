@@ -71,7 +71,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed, onToggleSidebar }) => {
                         />
                         {!collapsed && (
                           <>
-                            <span className={Styles.label}>{item.label}</span>
+                            <span className={Styles.Orglabel}>{item.label}</span>
                             {item.hasDropdown && (
                               <Image
                                 src="/images/img_np_next_2236826_000000.svg"

@@ -85,8 +85,8 @@ export default function LoginPage() {
           <Image
             src="/images/login-illustration.png"
             alt="Illustration"
-            width={500}
-            height={500}
+            width={600}
+            height={337.57}
           />
         </div>
       </div>

@@ -4,193 +4,205 @@
 .loginContainer {
   display: flex;
   height: 100vh;
-  font-family:var(--font-avenir-next, $font-base) ;
+  font-family: var(--font-avenir-next, $font-base);
   background: $color-light-bg;
-}
 
-/* ===== Left Panel ===== */
-.leftPanel {
-  flex: 1;
-  background: #fbfbfb;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 2rem 4rem;
-}
+  /* ===== Left Panel ===== */
+  .leftPanel {
+    flex: 1;
+    background: $color-light-bg;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
 
-.logoWrapper {
-  margin-bottom: 4rem;
-}
-
-.illustrationWrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  img {
-    max-width: 100%;
-    height: auto;
+    padding: 67px 64px;
   }
-}
 
-/* ===== Right Panel ===== */
-.rightPane {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 3rem;
-  background: $color-light-bg;
-}
+  .logoWrapper {
+    margin-bottom: 4rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 97px;
+    top: 106px;
+  }
 
-.formWrapper {
-  width: 100%;
-  max-width: 400px;
-}
+  .illustrationWrapper {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    top: 281px;
+    // padding-left: 67px;
+    opacity: 1;
 
-.welcome {
-  font-size: 40px;
-  font-weight: 700;
-  margin-bottom: 0.3rem;
-  color: $color-primary;
-}
+    img {
+      max-width: 100%;
+      height: auto;
+      // width: 600;
+      // height: 337.56939697265625;
+    }
+  }
 
-.subtitle {
-  font-size: 20px;
-  margin-bottom: 2rem;
-  color: $color-secondary;
-}
+  /* ===== Right Panel ===== */
+  .rightPane {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    background: $color-light-bg;
+    // angle: 0 deg;
+    opacity: 1;
+  }
 
-/* ===== Form ===== */
-.form {
-  display: flex;
-  flex-direction: column;
-}
+  .formWrapper {
+    width: 100%;
+    max-width: 400px;
+  }
 
-.inputGroup {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 1.2rem;
+  .welcome {
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+    color: $color-primary;
+  }
 
-  .label {
-    font-size: 0.85rem;
-    margin-bottom: 0.4rem;
+  .subtitle {
+    font-size: 20px;
+    margin-bottom: 2rem;
     color: $color-secondary;
   }
 
-  .input {
-    padding: 0.8rem;
-    // border: 1px solid $color-secondary;
-    border-radius: 5px;
-    font-size: 14px;
-    font-weight: 400;
-    outline: none;
-    transition: border-color 0.2s ease;
-
-    &:focus {
-      border-color: $color-accent;
-    }
-  }
-}
-
-/* ===== Password Field ===== */
-.passwordWrapper {
-  display: flex;
-  align-items: center;
-  // border: 1px solid $color-error;
-  border: 1px solid #d0d5dd;
-  border-radius: 5px;
-  overflow: hidden;
-
-   &:focus {
-      border:1px solid $color-accent;
-    }
-
-  input {
-    flex: 1;
-    border: none;
-    outline: none;
-    padding: 0.8rem;
-    font-size: 0.95rem;
-   
-  }
-
-  .showPassword {
-    background: none;
-    border: none;
-    color: $color-accent;
-    font-weight: 600;
-    font-size: 0.8rem;
-    padding: 0 12px;
-    cursor: pointer;
-    transition: color 0.2s ease;
-
-    &:hover {
-      color: darken($color-accent, 10%);
-    }
-  }
-   
-}
-
-/* ===== Extras ===== */
-.forgotPassword {
-  font: var(--font-avenir-next);
-  font-size: 12px;
-  font-weight: 600;
-  color: $color-accent;
-  text-decoration: none;
-  margin-bottom: 1.5rem;
-  display: inline-block;
-
-  &:hover {
-    text-decoration: underline;
-  }
-}
-
-.loginButton {
-  padding: 0.9rem;
-  background: $color-accent;
-  color: #fff;
-  font-size: 14px;
-  font-weight: 600;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.2s ease;
-  width: 100%;
-
-  &:hover {
-    background: darken($color-accent, 10%);
-  }
-}
-
-.spinner {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  border: 3px solid rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
-  border-top-color: #fff;
-  animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* ===== Responsive ===== */
-@media (max-width: 900px) {
-  .loginContainer {
+  /* ===== Form ===== */
+  .form {
+    display: flex;
     flex-direction: column;
   }
 
-  .leftPanel {
-    display: none;
+  .inputGroup {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.2rem;
+
+    .label {
+      font-size: 0.85rem;
+      margin-bottom: 0.4rem;
+      color: $color-secondary;
+    }
+
+    .input {
+      padding: 0.8rem;
+      // border: 1px solid $color-secondary;
+      border-radius: 5px;
+      font-size: 14px;
+      font-weight: 400;
+      outline: none;
+      transition: border-color 0.2s ease;
+
+      &:focus {
+        border-color: $color-accent;
+      }
+    }
   }
 
-  .rightPanel {
-    padding: 2rem 1rem;
+  /* ===== Password Field ===== */
+  .passwordWrapper {
+    display: flex;
+    align-items: center;
+    // border: 1px solid $color-error;
+    border: 1px solid #d0d5dd;
+    border-radius: 5px;
+    overflow: hidden;
+
+    &:focus {
+      border: 1px solid $color-accent;
+    }
+
+    input {
+      flex: 1;
+      border: none;
+      outline: none;
+      padding: 0.8rem;
+      font-size: 0.95rem;
+    }
+
+    .showPassword {
+      background: none;
+      border: none;
+      color: $color-accent;
+      font-weight: 600;
+      font-size: 0.8rem;
+      padding: 0 12px;
+      cursor: pointer;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: darken($color-accent, 10%);
+      }
+    }
+  }
+
+  /* ===== Extras ===== */
+  .forgotPassword {
+    font: var(--font-avenir-next);
+    font-size: 12px;
+    font-weight: 600;
+    color: $color-accent;
+    text-decoration: none;
+    margin-bottom: 1.5rem;
+    display: inline-block;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .loginButton {
+    padding: 0.9rem;
+    background: $color-accent;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    width: 100%;
+
+    &:hover {
+      background: darken($color-accent, 10%);
+    }
+  }
+
+  .spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 0.8s linear infinite;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 900px) {
+    .loginContainer {
+      flex-direction: column;
+    }
+
+    .leftPanel {
+      display: none;
+    }
+
+    .rightPanel {
+      padding: 2rem 1rem;
+    }
   }
 }

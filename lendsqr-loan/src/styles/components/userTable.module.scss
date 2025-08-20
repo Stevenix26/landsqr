@@ -226,6 +226,29 @@
 @media screen and (max-width: 1199px) and (min-width: 1024px) {
   .tableContainer {
     font-size: 15px;
+
+    th,
+    td {
+      padding: 14px 10px;
+    }
+
+    .status_btn {
+      min-width: 90px;
+      font-size: 13px;
+      padding: 4px 12px;
+    }
+  }
+
+  .pagination {
+    .page_nav {
+      gap: 0.25rem;
+
+      span,
+      button {
+        padding: 0.2rem 0.5rem;
+        font-size: 0.9rem;
+      }
+    }
   }
 }
 

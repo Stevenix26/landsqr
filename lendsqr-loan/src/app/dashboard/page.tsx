@@ -7,7 +7,7 @@ const Dashboard = () => {
     <>
       <div style={{ display: "flex", minHeight: "100vh" }}>
         <section style={{ flex: 1, display: "flex" }}>
-          <main style={{ flex: 2, padding: "1rem" }}>
+          <main style={{ flex: 1, padding: "1px" }}>
             {/* Dashboard content goes here */}
             <UserDetails />
           </main>
