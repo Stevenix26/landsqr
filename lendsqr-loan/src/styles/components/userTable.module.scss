@@ -8,8 +8,6 @@
   background-color: $color-light-bg;
   border-radius: 4px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-
-
 }
 
 .tableContainer {
@@ -24,11 +22,13 @@
     color: $color-primary;
     font-size: 13px;
     position: relative;
+    white-space: nowrap;
 
     .th_content {
       display: flex;
       align-items: center;
       gap: 0.5rem;
+      position: relative; // Add relative positioning to the content container
 
       .filter_icon {
         cursor: pointer;
@@ -46,9 +46,10 @@
       .filterDropdown {
         position: absolute;
         top: 28px;
-        left: 0;
+        left: -120px; // Adjust to center under the column header text
         z-index: 200;
         animation: fadeIn 0.18s ease;
+        min-width: 280px; // Ensure consistent width
       }
     }
   }
@@ -58,12 +59,14 @@
     font-size: 14px;
     color: $color-primary;
     border-bottom: 1px solid #e5e9f2;
-    vertical-align: middle;
+    vertical-align: top; // Align to top for multi-line content
+    min-height: 60px; // Minimum height for consistency
 
     .username_link {
       text-decoration: none;
       font-weight: 400;
       color: $color-primary;
+      display: inline-block;
       &:hover {
         color: $color-secondary;
       }
@@ -78,11 +81,24 @@
       cursor: default;
       min-width: 100px;
       height: 32px;
+      display: inline-block;
 
-      &.status_active { background-color: #e5f4ea; color: #39cd62; }
-      &.status_inactive { background-color: #f2f2f2; color: #545f7d; }
-      &.status_pending { background-color: #fff4e5; color: #e9b200; }
-      &.status_blacklisted { background-color: #fdecea; color: #e4033b; }
+      &.status_active {
+        background-color: #e5f4ea;
+        color: #39cd62;
+      }
+      &.status_inactive {
+        background-color: #f2f2f2;
+        color: #545f7d;
+      }
+      &.status_pending {
+        background-color: #fff4e5;
+        color: #e9b200;
+      }
+      &.status_blacklisted {
+        background-color: #fdecea;
+        color: #e4033b;
+      }
     }
 
     .actions {
@@ -94,12 +110,18 @@
       }
     }
 
-    &.break_all { word-break: break-all; }
+    &.break_all {
+      word-break: break-word;
+      hyphens: auto;
+      line-height: 1.4;
+    }
   }
 
   tbody tr {
     transition: background 0.18s;
-    &:hover { background-color: #f3f6fa; }
+    &:hover {
+      background-color: #f3f6fa;
+    }
   }
 }
 
@@ -130,7 +152,10 @@
       width: 80px;
       height: 30px;
 
-      &:hover { background-color: $color-primary; color: #fff; }
+      &:hover {
+        background-color: $color-primary;
+        color: #fff;
+      }
     }
   }
 
@@ -143,7 +168,10 @@
       padding: 0.25rem 0.75rem;
       color: $color-primary;
       cursor: pointer;
-      &.active { font-weight: 600; color: $color-primary; }
+      &.active {
+        font-weight: 600;
+        color: $color-primary;
+      }
     }
 
     button {
@@ -159,32 +187,95 @@
       align-items: center;
       justify-content: center;
 
-      &:hover { background-color: $color-primary; color: #fff; }
-      &:disabled { opacity: 0.5; cursor: not-allowed; }
+      &:hover {
+        background-color: $color-primary;
+        color: #fff;
+      }
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
     }
   }
 }
 
-/* Responsive Styles */
-@media screen and (max-width: 1024px) {
+/* Large Desktop (1200px+) */
+@media screen and (min-width: 1200px) {
+  .container {
+    padding: 32px 24px;
+  }
+
   .tableContainer {
-    font-size: 14px;
+    font-size: 16px;
+
+    th,
+    td {
+      padding: 16px 14px;
+    }
   }
 }
 
-@media screen and (max-width: 768px) {
+/* Desktop (1024px - 1199px) */
+@media screen and (max-width: 1199px) and (min-width: 1024px) {
+  .tableContainer {
+    font-size: 15px;
+  }
+}
+
+/* Laptop (768px - 1023px) - Keep table format */
+@media screen and (max-width: 1023px) and (min-width: 768px) {
+  .container {
+    padding: 20px 12px;
+  }
+
+  .tableContainer {
+    font-size: 14px;
+
+    th,
+    td {
+      padding: 12px 8px;
+    }
+
+    .status_btn {
+      min-width: 80px;
+      font-size: 12px;
+      padding: 4px 12px;
+    }
+  }
+
+  .pagination {
+    .page_nav {
+      gap: 0.25rem;
+
+      span,
+      button {
+        padding: 0.2rem 0.5rem;
+        font-size: 0.9rem;
+      }
+    }
+  }
+}
+
+/* Mobile (≤767px) - Card layout only for mobile */
+@media screen and (max-width: 767px) {
+  .container {
+    padding: 16px 8px;
+  }
+
   .tableContainer {
     border: 0;
 
-    thead { display: none; }
+    thead {
+      display: none;
+    }
 
     tr {
       display: block;
       margin-bottom: 1rem;
       background: #fff;
       border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-      padding: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      padding: 12px;
     }
 
     td {
@@ -192,8 +283,85 @@
       justify-content: space-between;
       align-items: center;
       text-align: left;
-      padding: 8px;
+      padding: 10px 8px;
       border-bottom: 1px solid #eee;
+      font-size: 14px;
+      min-height: auto;
+
+      &:before {
+        content: attr(data-label);
+        flex: 0 0 35%;
+        font-weight: 600;
+        color: $color-primary;
+        text-align: left;
+        font-size: 13px;
+      }
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      .status_btn {
+        min-width: 70px;
+        font-size: 12px;
+        padding: 4px 8px;
+      }
+    }
+  }
+
+  .pagination {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+
+    .items_info {
+      font-size: 0.9rem;
+    }
+
+    .page_nav {
+      gap: 0.25rem;
+
+      span,
+      button {
+        padding: 0.2rem 0.5rem;
+        font-size: 0.85rem;
+      }
+    }
+  }
+}
+
+/* Small Mobile (≤480px) */
+@media screen and (max-width: 480px) {
+  .container {
+    padding: 12px 4px;
+    margin-top: 1rem;
+  }
+
+  .tableContainer {
+    border: 0;
+
+    thead {
+      display: none;
+    }
+
+    tr {
+      display: block;
+      margin-bottom: 0.75rem;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+      padding: 8px;
+    }
+
+    td {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-align: left;
+      padding: 8px 6px;
+      border-bottom: 1px solid #eee;
+      font-size: 13px;
+      min-height: auto;
 
       &:before {
         content: attr(data-label);
@@ -201,22 +369,65 @@
         font-weight: 600;
         color: $color-primary;
         text-align: left;
+        font-size: 12px;
       }
 
-      &:last-child { border-bottom: none; }
+      &:last-child {
+        border-bottom: none;
+      }
+
+      .status_btn {
+        min-width: 60px;
+        font-size: 11px;
+        padding: 3px 6px;
+        height: 28px;
+      }
+
+      &.break_all {
+        word-break: break-word;
+        hyphens: auto;
+      }
     }
   }
 
   .pagination {
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.5rem;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+
+    .items_info {
+      font-size: 0.85rem;
+
+      select.items_btn {
+        width: 60px;
+        height: 28px;
+        font-size: 0.8rem;
+      }
+    }
+
+    .page_nav {
+      gap: 0.2rem;
+
+      span,
+      button {
+        padding: 0.15rem 0.4rem;
+        font-size: 0.8rem;
+        min-width: 20px;
+        height: 20px;
+      }
+    }
   }
 }
 
 /* Mobile filter button */
-.mobileFilterTrigger { display: none; margin-bottom: 1rem;
-  @media (max-width: 768px) { display: block; }
+.mobileFilterTrigger {
+  display: none;
+  margin-bottom: 1rem;
+
+  @media (max-width: 767px) {
+    display: block;
+  }
 }
 
 .mobileFilterBtn {
@@ -229,6 +440,12 @@
   padding: 0.4rem 0.8rem;
   border-radius: 4px;
   cursor: pointer;
+  font-size: 14px;
+
+  @media (max-width: 480px) {
+    padding: 0.3rem 0.6rem;
+    font-size: 13px;
+  }
 }
 
 .mobileFilterOverlay {
@@ -246,7 +463,24 @@
 .mobileFilterSheet {
   width: 100%;
   max-width: 440px;
-  background: #fff;
+  // background: #fff;
   border-radius: 8px;
   padding: 16px;
+
+  @media (max-width: 480px) {
+    padding: 12px;
+    margin: 8px;
+  }
+}
+
+/* Animation for filter dropdown */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

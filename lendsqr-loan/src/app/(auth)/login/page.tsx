@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "@/styles/components/login.module.scss";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -12,6 +12,50 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false); // <-- Add loading state
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined" || !window.matchMedia) return;
+
+    const mediaQuery = window.matchMedia("(max-width: 900px)");
+    const handleChange = (e: MediaQueryListEvent | MediaQueryList) => {
+      // MediaQueryListEvent for modern browsers, MediaQueryList for initial call
+      const matches =
+        "matches" in e ? e.matches : (e as MediaQueryList).matches;
+      setIsMobile(matches);
+    };
+
+    // Initial set
+    handleChange(mediaQuery);
+
+    // Subscribe to changes
+    if (mediaQuery.addEventListener) {
+      mediaQuery.addEventListener(
+        "change",
+        handleChange as (ev: Event) => void
+      );
+    } else if (mediaQuery.addListener) {
+      mediaQuery.addListener(
+        handleChange as (this: MediaQueryList, ev: MediaQueryListEvent) => void
+      );
+    }
+
+    return () => {
+      if (mediaQuery.removeEventListener) {
+        mediaQuery.removeEventListener(
+          "change",
+          handleChange as (ev: Event) => void
+        );
+      } else if (mediaQuery.removeListener) {
+        mediaQuery.removeListener(
+          handleChange as (
+            this: MediaQueryList,
+            ev: MediaQueryListEvent
+          ) => void
+        );
+      }
+    };
+  }, []);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -50,6 +94,17 @@ export default function LoginPage() {
       {/* ===== Right Panel ===== */}
       <div className={styles.rightPane}>
         <div className={styles.formWrapper}>
+          {isMobile && (
+            <div className={styles.mobileLogo}>
+              <Image
+                src="/images/lendsqr.svg"
+                alt="Logo"
+                width={120}
+                height={32}
+              />
+            </div>
+          )}
+
           <h1 className={styles.welcome}>Welcome!</h1>
           <p className={styles.subtitle}>Enter details to login.</p>
 
@@ -98,11 +153,7 @@ export default function LoginPage() {
               className={styles.loginButton}
               disabled={loading}
             >
-              {loading ? (
-                <span className={styles.spinner}></span> // <-- spinner element
-              ) : (
-                "LOG IN"
-              )}
+              {loading ? <span className={styles.spinner}></span> : "LOG IN"}
             </button>
           </form>
         </div>

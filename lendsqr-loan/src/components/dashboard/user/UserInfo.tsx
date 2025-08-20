@@ -1,5 +1,5 @@
 "use client";
-import React from "react";;
+import React from "react";
 import { useRouter } from "next/navigation";
 import Styles from "@/styles/components/userInfo.module.scss";
 import Image from "next/image";
@@ -17,6 +17,37 @@ const UserInfo: React.FC<UserDetailsProps> = ({
   onActivate,
 }) => {
   const router = useRouter();
+
+  // Function to format account balance with commas
+  const formatAccountBalance = (balance: string) => {
+    console.log("Original balance:", balance); // Debug log
+
+    // Handle empty or null values
+    if (!balance || balance.trim() === "") {
+      return "0.00";
+    }
+
+    // Remove any existing commas, currency symbols, and convert to number
+    const cleanBalance = balance.replace(/[₦$,]/g, "").trim();
+    console.log("Clean balance:", cleanBalance); // Debug log
+
+    const numericBalance = parseFloat(cleanBalance);
+    console.log("Numeric balance:", numericBalance); // Debug log
+
+    // Check if it's a valid number
+    if (isNaN(numericBalance)) {
+      console.log("Invalid number, returning original"); // Debug log
+      return balance; // Return original if not a valid number
+    }
+
+    // Format with commas
+    const formatted = numericBalance.toLocaleString("en-US", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+    console.log("Formatted balance:", formatted); // Debug log
+    return formatted;
+  };
 
   return (
     <div className={Styles.userDetails}>
@@ -55,8 +86,6 @@ const UserInfo: React.FC<UserDetailsProps> = ({
             <div className={Styles.info}>
               <h2>{user.userInfo.fullName}</h2>
               <p>{user.username}</p>
-              {/* <p>Status: {user.status}</p> */}
-              {/* Added status */}
             </div>
           </div>
 
@@ -64,7 +93,7 @@ const UserInfo: React.FC<UserDetailsProps> = ({
           <div className={Styles.line}></div>
 
           <div className={Styles.tier}>
-            <p>User’s Tier</p>
+            <p>User's Tier</p>
             <div className={Styles.stars}>
               {"★".repeat(user.userTier)}
               {"☆".repeat(3 - user.userTier)}
@@ -75,7 +104,7 @@ const UserInfo: React.FC<UserDetailsProps> = ({
           <div className={Styles.line}></div>
 
           <div className={Styles.account}>
-            <h3>{user.accountBalance}</h3>
+            <h3>₦{formatAccountBalance(user.accountBalance)}</h3>
             <p>
               {user.accountNumber}/{user.bankName}
             </p>

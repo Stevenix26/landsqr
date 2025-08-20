@@ -55,6 +55,15 @@
     padding: 1rem;
     overflow-y: auto;
     height: calc(100vh - 3rem);
+
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
   }
   .menuList {
     list-style: none;
@@ -89,11 +98,11 @@
       right: 16px;
       height: 40px;
       position: relative;
-      span{
+      span {
         left: 14px;
         position: relative;
       }
-      img{
+      img {
         left: 14px;
         position: relative;
       }

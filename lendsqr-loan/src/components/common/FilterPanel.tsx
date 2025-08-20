@@ -89,7 +89,6 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
             aria-label="Date"
             placeholder="Date"
           />
-         
         </label>
 
         <label>
